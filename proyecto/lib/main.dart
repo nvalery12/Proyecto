@@ -31,9 +31,9 @@ class MyApp extends StatelessWidget {
         icon: Icon(Icons.access_alarm),
         onPressed: (){
           setState(() {
+            state++;
             if(state == 3)
               state = 0;
-            state++;
           });
         },
       ),
