@@ -36,7 +36,10 @@ class MyApp extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.only( // redondea solo...
+                topLeft: Radius.circular(50),
+                topRight: Radius.circular(50)
+              ),
             ),
           ),
         ),
@@ -53,6 +56,24 @@ class MyApp extends StatelessWidget {
         ),
           )
       ]
+    ),
+    //Todo esto es simplemente una prueba, se ira despues
+    bottomNavigationBar: BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.business),
+          label: 'Business',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.school),
+          label: 'School',
+        ),
+      ],
+      selectedItemColor: Colors.amber[800],
     ),
     backgroundColor: Color(backgroundColors[state]),
   );
