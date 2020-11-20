@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'timetxt.dart';
+
 var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2];
 int state = 0;
+int min = 5, sec = 5;
 void main() {
   runApp(MyApp());
 }
@@ -24,10 +25,6 @@ class MyApp extends StatelessWidget {
 
   class _MyHomePageState extends State<MyHomePage> {
 
-  Timetxt timeTxt = new Timetxt(
-    min: 6,
-    sec: 4,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +48,27 @@ class MyApp extends StatelessWidget {
         Center(
           child: IconButton(
               icon: Icon(Icons.access_alarm),
-          onPressed: (){ //Cuando presiono
-                setState(() {
-                  timeTxt.lessTime();
-                });
-          },
+              onPressed: (){ //Cuando presiono
+                  setState(() {
+                    min--;
+                    sec--;
+                  });},
         ),
           ),
-        timeTxt
+        Align(
+          child: Container(
+            child: Text(
+              "$min:$sec",
+              style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+              ),
+            ),
+            alignment: Alignment.topCenter,
+          ),
+          alignment: Alignment.topCenter,
+        )
       ]
     ),
     backgroundColor: Color(backgroundColors[state]),
