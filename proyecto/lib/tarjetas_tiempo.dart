@@ -4,7 +4,7 @@ class TarjetasTiempo extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _TarjetasTiempo();
+    _TarjetasTiempo createState() => _TarjetasTiempo();
   }
   
 }

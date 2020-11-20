@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'timetxt.dart';
 var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2];
 int state = 0;
 void main() {
@@ -23,6 +23,11 @@ class MyApp extends StatelessWidget {
   }
 
   class _MyHomePageState extends State<MyHomePage> {
+
+  Timetxt timeTxt = new Timetxt(
+    min: 6,
+    sec: 4,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -47,33 +52,14 @@ class MyApp extends StatelessWidget {
           child: IconButton(
               icon: Icon(Icons.access_alarm),
           onPressed: (){ //Cuando presiono
-            setState(() { // Setea el estado
-              state++;
-              if(state == 3)
-                state = 0;
-            });
+                setState(() {
+                  timeTxt.lessTime();
+                });
           },
         ),
-          )
+          ),
+        timeTxt
       ]
-    ),
-    //Todo esto es simplemente una prueba, se ira despues
-    bottomNavigationBar: BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          label: 'Business',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.school),
-          label: 'School',
-        ),
-      ],
-      selectedItemColor: Colors.amber[800],
     ),
     backgroundColor: Color(backgroundColors[state]),
   );
