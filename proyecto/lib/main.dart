@@ -97,7 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     minText=minToString(); secText=secToString(); restText=secRestToString();
+=======
+    smin=minuto(); ssec=segundo();
+>>>>>>> Reloj
     return Scaffold(
       body: Stack(
           children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
