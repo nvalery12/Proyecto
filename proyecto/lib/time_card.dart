@@ -36,7 +36,7 @@ class TimeCard extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.only(
-                left: (MediaQuery.of(context).size.width)/10,
+                left: (MediaQuery.of(context).size.width)/11,
                 right: (MediaQuery.of(context).size.width)/12
               ),
               child: Text(
