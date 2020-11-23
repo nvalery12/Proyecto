@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'time_card.dart';
+import 'time_card_list.dart';
 
 var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores
@@ -122,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
               alignment: Alignment.topCenter,
             ),
             Center(
-              child: TimeCard(Icons.watch_later_outlined, "Trabajo","00:00"),
+              child: TimeCardList(),
             )
           ]
       ),
