@@ -4,14 +4,9 @@ import 'dart:async';
 
 var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores
-int min = 5, sec = 5; // minutos y segundos, por ahora esta inicializado, pero cuando este listo se le guardaran los valores que se le pasen
+int sec = 10, min = 0, secRest=15, minRest=0, sets=2; // minutos, segundos, secundos de descanso y sets. Por ahora esta inicializado, pero cuando este listo se le guardaran los valores que se le pasen
+String secText, minText, secrestText, minrestText;
 
-/*Algoritmo que se encarga de cambiar colores de fondo*/
-void chageState(){
-  state++;
-  if(state == 3)
-    state = 0;
-}
 void main() {
   runApp(MyApp());
 }
@@ -32,46 +27,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int sec = 10, min = 0, secRest=15;
-  Timer timer, dTimer;
-  String secText, minText, restText;
+  Timer timer;
 
-  void startRestTimer(){ //inicia la funcion de temporizacion
-    dTimer = Timer.periodic(Duration(seconds: 1), (dTimer) {
-      setState(() {
-        if(secRest>0){
-          secRest--;
-        }else{
-          dTimer.cancel();
-        }
-      });
-    });
-  }
-
-  String secRestToString(){ //Convierte el segundo de entero a String
-    String num = secRest.toString();
-    if(secRest>9){
-      return num;
-    }else{
-      return '0$num';
-    }
-  }
-
-  String secToString(){ //Convierte el segundo de entero a String
-    String num = sec.toString();
-    if(sec>9){
-      return num;
-    }else{
-      return '0$num';
-    }
-  }
-
-  String minToString(){ //Convierte el minuto de entero a String
-    String num = min.toString();
-    if(min>9){
-      return num;
-    }else{
-      return '0$num';
+  //Funcion que genera los sets
+  void startSets(){
+    int i=0;
+    while(i<sets){
+      if(i==0) {
+        startTimer(secRest, minRest);
+        startTimer(sec, min);
+        startTimer(secRest, minRest);
+      }else{
+        startTimer(sec, min);
+        startTimer(secRest, minRest);
+      }
+      i++;
     }
   }
 
@@ -79,17 +49,16 @@ class _MyHomePageState extends State<MyHomePage> {
     timer.cancel();
   }
 
-  void startTimer(){ //inicia la funcion de temporizacion
+  void startTimer(int seconds, int minutes){ //inicia la funcion de temporizacion
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        if(sec>0){
-          sec--;
-        }else if(sec==0 && min>0){
-          min--;
-          sec = 59;
+        if(seconds>0){
+          seconds--;
+        }else if(seconds==0 && minutes>0){
+          minutes--;
+          seconds = 59;
         }else{
           timer.cancel();
-          startRestTimer();
         }
       });
     });
@@ -97,11 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    minText=minToString(); secText=secToString(); restText=secRestToString();
-=======
-    smin=minuto(); ssec=segundo();
->>>>>>> Reloj
+    minText=minToString(min); secText=secToString(sec);
+    minrestText=minToString(minRest); secrestText=secToString(secRest);
     return Scaffold(
       body: Stack(
           children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
@@ -124,8 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.access_alarm),
                 onPressed: (){ //Cuando presiono
                   setState(() { //Setea el estado, es decir, revisa las variables
-                    startTimer();
+                    startSets();
                     chageState();
+
                   });},
               ),
             ),
@@ -139,8 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.white
                   ),
                 ) :
-                Text( //Texto de descando
-                  "00:$restText",
+                Text("$minrestText:$secrestText",
                   style: TextStyle(
                       fontSize: 90,
                       fontWeight: FontWeight.bold,
@@ -157,5 +123,32 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Color(backgroundColors[state]),  //El color se va cambiando dependiendo del state
     );
+  }
+}
+
+/*Algoritmo que se encarga de cambiar colores de fondo*/
+void chageState(){
+  state++;
+  if(state == 3)
+    state = 0;
+}
+
+//Convierte el segundo de entero a String
+String secToString(int seconds){
+  String num = seconds.toString();
+  if(sec>9){
+    return num;
+  }else{
+    return '0$num';
+  }
+}
+
+//Convierte el minuto de entero a String
+String minToString(int minutes){
+  String num = minutes.toString();
+  if(minutes>9){
+    return num;
+  }else{
+    return '0$num';
   }
 }
