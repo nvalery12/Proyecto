@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'time_card.dart';
 
 var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores
@@ -110,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text( //Texto de numeros
                   "$smin:$ssec",
                   style: TextStyle(
-                      fontSize: 90,
+                      fontSize: 74,
                       fontWeight: FontWeight.bold,
                       color: Colors.white
                   ),
@@ -119,6 +120,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(110),
               ),
               alignment: Alignment.topCenter,
+            ),
+            Center(
+              child: TimeCard(Icons.watch_later_outlined, "Trabajo","00:00"),
             )
           ]
       ),
