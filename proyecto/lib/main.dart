@@ -32,11 +32,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int sec = 10, min = 2;
-  Timer timer;
-  String ssec, smin;
+  int sec = 10, min = 0, secRest=15;
+  Timer timer, dTimer;
+  String secText, minText, restText;
 
-  String segundo(){ //Convierte el segundo de entero a String
+  void startRestTimer(){ //inicia la funcion de temporizacion
+    dTimer = Timer.periodic(Duration(seconds: 1), (dTimer) {
+      setState(() {
+        if(secRest>0){
+          secRest--;
+        }else{
+          dTimer.cancel();
+        }
+      });
+    });
+  }
+
+  String secRestToString(){ //Convierte el segundo de entero a String
+    String num = secRest.toString();
+    if(secRest>9){
+      return num;
+    }else{
+      return '0$num';
+    }
+  }
+
+  String secToString(){ //Convierte el segundo de entero a String
     String num = sec.toString();
     if(sec>9){
       return num;
@@ -45,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  String minuto(){ //Convierte el minuto de entero a String
+  String minToString(){ //Convierte el minuto de entero a String
     String num = min.toString();
     if(min>9){
       return num;
@@ -54,13 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void detener(){ //Detiene el reloj
+  void stopTimer(){ //Detiene el reloj
     timer.cancel();
   }
 
   void startTimer(){ //inicia la funcion de temporizacion
-    sec = 10;
-    min = 2;
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if(sec>0){
@@ -70,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
           sec = 59;
         }else{
           timer.cancel();
+          startRestTimer();
         }
       });
     });
@@ -77,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    smin=minuto(); ssec=segundo();
+    minText=minToString(); secText=secToString(); restText=secRestToString();
     return Scaffold(
       body: Stack(
           children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
@@ -107,8 +127,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Align(
               child: Container(
-                child: Text( //Texto de numeros
-                  "$smin:$ssec",
+                child: (min+sec>0) ? Text( //Texto de numeros
+                  "$minText:$secText",
+                  style: TextStyle(
+                      fontSize: 90,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                  ),
+                ) :
+                Text( //Texto de descando
+                  "00:$restText",
                   style: TextStyle(
                       fontSize: 90,
                       fontWeight: FontWeight.bold,
@@ -118,8 +146,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.all(110),
               ),
+
               alignment: Alignment.topCenter,
-            )
+            ),
           ]
       ),
       backgroundColor: Color(backgroundColors[state]),  //El color se va cambiando dependiendo del state
