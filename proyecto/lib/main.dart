@@ -96,16 +96,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Center(
-              child: IconButton( //Boton de reloj del centro
-                icon: Icon(Icons.access_alarm),
-                onPressed: (){ //Cuando presiono
-                  setState(() { //Setea el estado, es decir, revisa las variables
-                    startTimer();
-                    chageState();
-                  });},
-              ),
-            ),
             Align(
               child: Container(
                 child: Text( //Texto de numeros
@@ -117,11 +107,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 alignment: Alignment.topCenter,
-                padding: EdgeInsets.all(110),
+                padding: EdgeInsets.all(100),
               ),
-              alignment: Alignment.topCenter,
             ),
             Center(
+              child: IconButton( //Boton de reloj del centro
+                icon: Icon(Icons.play_circle_fill,
+                  color: Color(0xffec524b),
+                ),
+                iconSize: 125,
+                onPressed: (){ //Cuando presiono
+                  setState(() { //Setea el estado, es decir, revisa las variables
+                    startTimer();
+                    chageState();
+                  });},
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
               child: TimeCardList(),
             )
           ]
