@@ -4,8 +4,8 @@ import 'dart:async';
 
 var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores
-int sec = 10, min = 0, secRest=15, minRest=0, sets=2; // minutos, segundos, secundos de descanso y sets. Por ahora esta inicializado, pero cuando este listo se le guardaran los valores que se le pasen
-String secText, minText, secrestText, minrestText;
+int secTraining = 15, minTraining = 0, secRest=15, minRest=0, sets=2, exercises = 2; // minutos, segundos, secundos de descanso y sets. Por ahora esta inicializado, pero cuando este listo se le guardaran los valores que se le pasen
+String secText, minText;
 
 void main() {
   runApp(MyApp());
@@ -31,25 +31,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //Funcion que genera los sets
   void startSets(){
-    int i=0;
-    while(i<sets){
-      if(i==0) {
-        startTimer(secRest, minRest);
-        startTimer(sec, min);
-        startTimer(secRest, minRest);
-      }else{
-        startTimer(sec, min);
-        startTimer(secRest, minRest);
+    startTimer(10,0);
+      for(int i=0; i<sets;i++){
+        for(int j=0;j<exercises;j++){
+          startTimer(secTraining,minTraining);
+         // startTimer(secRest,minRest);
+        }
+       // startTimer(10,0);
       }
-      i++;
-    }
   }
 
   void stopTimer(){ //Detiene el reloj
     timer.cancel();
   }
 
-  void startTimer(int seconds, int minutes){ //inicia la funcion de temporizacion
+  void startTimer(int seconds, int minutes) async{ //inicia la funcion de temporizacion
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if(seconds>0){
@@ -60,14 +56,17 @@ class _MyHomePageState extends State<MyHomePage> {
         }else{
           timer.cancel();
         }
+        minText=minToString(minutes);
+        secText=secToString(seconds);
+        print("$minutes:$seconds");
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    minText=minToString(min); secText=secToString(sec);
-    minrestText=minToString(minRest); secrestText=secToString(secRest);
+    /*minText=minToString(minTraining);
+    secText=secToString(secTraining);*/
     return Scaffold(
       body: Stack(
           children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
@@ -91,24 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: (){ //Cuando presiono
                   setState(() { //Setea el estado, es decir, revisa las variables
                     startSets();
-                    chageState();
+                    //chageState();
 
                   });},
               ),
             ),
             Align(
               child: Container(
-                child: (min+sec>0) ? Text( //Texto de numeros
+                child:Text( //Texto de numeros
                   "$minText:$secText",
                   style: TextStyle(
-                      fontSize: 90,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
-                  ),
-                ) :
-                Text("$minrestText:$secrestText",
-                  style: TextStyle(
-                      fontSize: 90,
+                      fontSize: 70,
                       fontWeight: FontWeight.bold,
                       color: Colors.white
                   ),
@@ -136,10 +128,10 @@ void chageState(){
 //Convierte el segundo de entero a String
 String secToString(int seconds){
   String num = seconds.toString();
-  if(sec>9){
+  if(seconds>9){
     return num;
   }else{
-    return '0$num';
+    return "0$num";
   }
 }
 
@@ -149,6 +141,6 @@ String minToString(int minutes){
   if(minutes>9){
     return num;
   }else{
-    return '0$num';
+    return "0$num";
   }
 }
