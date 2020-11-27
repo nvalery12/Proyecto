@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -27,42 +29,56 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Timer timer;
+  var timerQueue = Queue<Duration>();
+  Timer currentTimer;
 
-  //Funcion que genera los sets
-  void startSets(){
-    startTimer(10,0);
-      for(int i=0; i<sets;i++){
-        for(int j=0;j<exercises;j++){
-          startTimer(secTraining,minTraining);
-         // startTimer(secRest,minRest);
-        }
-       // startTimer(10,0);
+//Create the sets
+  void startSets() {
+    timerQueue.add(Duration(seconds: 10));
+    for (var i = 0; i < sets; i++) {
+      for (var j = 0; j < exercises; j++) {
+        timerQueue.add(Duration(seconds: 15));
       }
+      timerQueue.add(Duration(seconds: 12));
+    }
+    startNextTimer();
   }
 
-  void stopTimer(){ //Detiene el reloj
-    timer.cancel();
+  void stopTimer() {
+    currentTimer.cancel();
+    currentTimer = null;
   }
 
-  void startTimer(int seconds, int minutes) async{ //inicia la funcion de temporizacion
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+  void startNextTimer() {
+    if (timerQueue.isEmpty) {
+      return;
+    }
+
+    var duration = timerQueue.removeFirst();
+    var seconds = duration.inSeconds % 60;
+    var minutes = duration.inMinutes;
+
+    assert(currentTimer == null);
+    currentTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        if(seconds>0){
+        if (seconds > 0){
           seconds--;
-        }else if(seconds==0 && minutes>0){
+        } else if (seconds == 0 && minutes > 0) {
           minutes--;
           seconds = 59;
-        }else{
-          timer.cancel();
+        } else {
+          currentTimer.cancel();
+          currentTimer = null;
         }
-        minText=minToString(minutes);
-        secText=secToString(seconds);
-        print("$minutes:$seconds");
+        minText = minToString(minutes);
+        secText = secToString(seconds);
+
+        if (currentTimer == null) {
+          startNextTimer();
+        }
       });
     });
   }
-
   @override
   Widget build(BuildContext context) {
     /*minText=minToString(minTraining);
