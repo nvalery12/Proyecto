@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'time_card_list.dart';
 
-int secTraining = 15, minTraining = 0, secRest=15, minRest=0, sets=2, exercises = 2; // minutos, segundos, secundos de descanso y sets. Por ahora esta inicializado, pero cuando este listo se le guardaran los valores que se le pasen
+int secTraining = 15, minTraining = 0, secRest=15, minRest=0, secRoundRest = 10, minRoundRest = 0, sets=2, exercises = 2; // minutos, segundos, secundos de descanso y sets. Por ahora esta inicializado, pero cuando este listo se le guardaran los valores que se le pasen
 String secText, minText;
 var seconds, minutes;
 
@@ -23,15 +23,17 @@ class _Timer_Page extends State<Timer_Page>{
   bool isTimerActive = false;
   var timerQueue = List<Duration>();
   Timer currentTimer;
+  var icon = Icons.play_circle_fill;
 
   //Create the sets
   void startSets() {
     timerQueue.add(Duration(seconds: 10));
     for (var i = 0; i < sets; i++) {
       for (var j = 0; j < exercises; j++) {
-        timerQueue.add(Duration(seconds: 15));
+        timerQueue.add(Duration(seconds: secTraining,minutes:minTraining ));
+        timerQueue.add(Duration(seconds:secRest ,minutes:minRest ));
       }
-      timerQueue.add(Duration(seconds: 12));
+      timerQueue.add(Duration(seconds:secRoundRest ,minutes: minRoundRest ));
     }
     startNextTimer();
   }
@@ -71,6 +73,7 @@ class _Timer_Page extends State<Timer_Page>{
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -106,7 +109,7 @@ class _Timer_Page extends State<Timer_Page>{
           ),
           Center(
             child: IconButton( //Boton de reloj del centro
-              icon: Icon(Icons.play_circle_fill,
+              icon: Icon(icon,
                 color: Color(0xffec524b),
               ),
               iconSize: 125,
@@ -118,9 +121,15 @@ class _Timer_Page extends State<Timer_Page>{
                     }else{
                       startNextTimer();
                     }
+                    setState(() {
+                      icon = Icons.pause_circle_filled;
+                    });
                   }else{
                     isTimerActive = false;
                     stopTimer();
+                    setState(() {
+                      icon = Icons.play_circle_fill;
+                    });
                   }
                 },
             ),
