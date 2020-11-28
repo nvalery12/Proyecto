@@ -8,6 +8,8 @@ var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2]; //lista de colores, c
 int state = 0; //Sirve para llevar un control de la lista de colores
 int secTraining = 15, minTraining = 0, secRest=15, minRest=0, sets=2, exercises = 2; // minutos, segundos, secundos de descanso y sets. Por ahora esta inicializado, pero cuando este listo se le guardaran los valores que se le pasen
 String secText, minText;
+bool isTimerActive = false;
+var seconds, minutes;
 
 void main() {
   runApp(MyApp());
@@ -29,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var timerQueue = Queue<Duration>();
+  var timerQueue = List<Duration>();
   Timer currentTimer;
 
 //Create the sets
@@ -47,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void stopTimer() {
     currentTimer.cancel();
     currentTimer = null;
+    timerQueue.insert(0,Duration(seconds: seconds,minutes: minutes));
   }
 
   void startNextTimer() {
@@ -54,11 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
 
-    var duration = timerQueue.removeFirst();
-    var seconds = duration.inSeconds % 60;
-    var minutes = duration.inMinutes;
+    var duration = timerQueue.first;
+    timerQueue.remove(timerQueue.first);
+    seconds = duration.inSeconds % 60;
+    minutes = duration.inMinutes;
 
-    assert(currentTimer == null);
     currentTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if (seconds > 0){
@@ -72,7 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         minText = minToString(minutes);
         secText = secToString(seconds);
-
         if (currentTimer == null) {
           startNextTimer();
         }
@@ -104,11 +106,18 @@ class _MyHomePageState extends State<MyHomePage> {
               child: IconButton( //Boton de reloj del centro
                 icon: Icon(Icons.access_alarm),
                 onPressed: (){ //Cuando presiono
-                  setState(() { //Setea el estado, es decir, revisa las variables
-                    startSets();
-                    //chageState();
-
-                  });},
+                  if(isTimerActive == false){
+                    isTimerActive = true;
+                      if(timerQueue.isEmpty){
+                        startSets();
+                      }else{
+                        startNextTimer();
+                      }
+                    }else{
+                      isTimerActive = false;
+                      stopTimer();
+                    }
+                  },
               ),
             ),
             Align(
