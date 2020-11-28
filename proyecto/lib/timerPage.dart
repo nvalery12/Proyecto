@@ -93,7 +93,7 @@ class _Timer_Page extends State<Timer_Page>{
           Align(
             child: Container(
               child: Text( //Texto de numeros
-                "00:00",
+                "$minText:$secText",
                 style: TextStyle(
                     fontSize: 74,
                     fontWeight: FontWeight.bold,
