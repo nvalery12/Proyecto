@@ -99,6 +99,16 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color(0xfff5b461),
+                  border: Border(
+                  left: BorderSide(
+                  color: Color(0xfff5b461),
+                  width: 3,
+                    ),
+                  ),
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -125,16 +135,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       activeColor: Colors.green,
                     ),
                   ],
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xfff5b461),
-                  border: Border(
-                    left: BorderSide(
-                      color: Color(0xfff5b461),
-                      width: 3,
-                    ),
-                  ),
                 ),
                 height: 50,
               ),
