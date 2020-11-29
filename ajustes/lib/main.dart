@@ -6,6 +6,7 @@ import 'dart:async';
 import 'timerPage.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:audioplayers/audio_cache.dart';
+import 'package:vibration/vibration.dart';
 
 var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores
@@ -36,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool switchPitido = false, switchVibrar = false, switchInicio = false, switchBloqueo = false;
 
   _PatternVibrate() {
-    HapticFeedback.vibrate();
+    Vibration.vibrate(duration: 5000);
 
     sleep(
       const Duration(milliseconds: 200),
@@ -96,26 +97,24 @@ class _MyHomePageState extends State<MyHomePage> {
         absorbing: false,
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              Text(''),
               Container(
                 width: (MediaQuery.of(context).size.width)/1.25,
                 height: (MediaQuery.of(context).size.height)/11,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
                   color: Color(0xfff5b461),
-                  border: Border(
-                  left: BorderSide(
-                  color: Color(0xfff5b461),
-                  width: 3,
-                    ),
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10.0) //         <--- border radius here
                   ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Pitidos',
+                      ' Pitidos',
                       style: TextStyle(
                         color: Color(0xff16697a),
                         fontSize: 20,
@@ -141,11 +140,20 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Text(''),
               Container(
+                width: (MediaQuery.of(context).size.width)/1.25,
+                height: (MediaQuery.of(context).size.height)/11,
+                decoration: BoxDecoration(
+                  color: Color(0xfff5b461),
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10.0) //         <--- border radius here
+                  ),
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "   Vibrar                                      ",
+                      " Vibrar",
                       style: TextStyle(
                         color: Color(0xff16697a),
                         fontSize: 20,
@@ -159,7 +167,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           switchVibrar=value;
                           print(switchVibrar);
                           if(switchVibrar == true){
-                            _PatternVibrate();
+                            Vibration.vibrate();
+                            // _PatternVibrate();
                           }
                         });
                       },
@@ -168,15 +177,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                color: Color(0xfff5b461),
               ),
               Text(''),
               Container(
+                width: (MediaQuery.of(context).size.width)/1.25,
+                height: (MediaQuery.of(context).size.height)/11,
+                decoration: BoxDecoration(
+                  color: Color(0xfff5b461),
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10.0) //         <--- border radius here
+                  ),
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '   Sonido de inicio                    ',
+                      ' Sonido de inicio',
                       //Color(0xff16697a),
                       style: TextStyle(
                         color: Color(0xff16697a),
@@ -200,15 +217,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                color: Color(0xfff5b461),
               ),
               Text(''),
               Container(
+                width: (MediaQuery.of(context).size.width)/1.25,
+                height: (MediaQuery.of(context).size.height)/11,
+                decoration: BoxDecoration(
+                  color: Color(0xfff5b461),
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10.0) //         <--- border radius here
+                  ),
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '   Bloqueo de pantalla             ',
+                      ' Bloqueo de pantalla',
                       style: TextStyle(
                         color: Color(0xff16697a),
                         fontSize: 20,
@@ -233,7 +258,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                color: Color(0xfff5b461),
               ),
             ],
           ),
