@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'time_card_list.dart';
 
 int secTraining = 15, minTraining = 0, secRest=15, minRest=0, secRoundRest = 10, minRoundRest = 0, sets=2, exercises = 2; //Valores para el circuito
 String secText, minText;  //Segundos y minutos para el widget Text
-var seconds, minutes; //Segundos y minutos que esta utilizando el temporizador actualmente
+var seconds, minutes,actualColor; //Segundos y minutos que esta utilizando el temporizador actualmente
 
 
 class Timer_Page extends StatefulWidget{
@@ -21,17 +20,22 @@ class Timer_Page extends StatefulWidget{
 
 class _Timer_Page extends State<Timer_Page>{
   var timerQueue = List<Duration>();
+  var colorsQueue = List<int>();
   Timer currentTimer;
 
   //Rellena la cola de duraciones
   void startSets() {
     timerQueue.add(Duration(seconds: 10));
+    colorsQueue.add(0);
     for (var i = 0; i < sets; i++) {
       for (var j = 0; j < exercises; j++) {
         timerQueue.add(Duration(seconds: secTraining,minutes:minTraining ));
+        colorsQueue.add(1);
         timerQueue.add(Duration(seconds:secRest ,minutes:minRest ));
+        colorsQueue.add(2);
       }
       timerQueue.add(Duration(seconds:secRoundRest ,minutes: minRoundRest ));
+      colorsQueue.add(3);
     }
     startNextTimer();
   }
@@ -40,6 +44,7 @@ class _Timer_Page extends State<Timer_Page>{
     currentTimer.cancel();
     currentTimer = null;
     timerQueue.insert(0,Duration(seconds: seconds,minutes: minutes));
+    colorsQueue.insert(0, actualColor);
   }
   //Funcion recursiva para correr el reloj
   void startNextTimer() {
@@ -51,6 +56,10 @@ class _Timer_Page extends State<Timer_Page>{
     timerQueue.remove(timerQueue.first);
     seconds = duration.inSeconds % 60;
     minutes = duration.inMinutes;
+
+    actualColor = colorsQueue.first;
+    this.widget.changeState(colorsQueue.first);
+    colorsQueue.remove(colorsQueue.first);
 
     currentTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
