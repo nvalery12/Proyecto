@@ -99,8 +99,11 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
+<<<<<<< HEAD
                 width: (MediaQuery.of(context).size.width)/1.25,
                 height: (MediaQuery.of(context).size.height)/11,
+=======
+>>>>>>> Ajustes
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Color(0xfff5b461),
@@ -138,6 +141,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
+<<<<<<< HEAD
+=======
+                height: 50,
+>>>>>>> Ajustes
               ),
               Text(''),
               Container(
