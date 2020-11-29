@@ -20,10 +20,8 @@ class Timer_Page extends StatefulWidget{
 }
 
 class _Timer_Page extends State<Timer_Page>{
-  bool isTimerActive = false;
   var timerQueue = List<Duration>();
   Timer currentTimer;
-  var icon = Icons.play_circle_fill;
 
   //Create the sets
   void startSets() {
@@ -37,7 +35,7 @@ class _Timer_Page extends State<Timer_Page>{
     }
     startNextTimer();
   }
-
+  //
   void stopTimer() {
     currentTimer.cancel();
     currentTimer = null;
@@ -74,9 +72,10 @@ class _Timer_Page extends State<Timer_Page>{
     });
   }
 
+  bool isTimerActive = false;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    var icon = Icons.play_circle_fill;
     return Stack(
         children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
           Align(
