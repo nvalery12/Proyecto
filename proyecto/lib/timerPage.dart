@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'time_card_list.dart';
 
-int secTraining = 15, minTraining = 0, secRest=15, minRest=0, secRoundRest = 10, minRoundRest = 0, sets=2, exercises = 2; // minutos, segundos, secundos de descanso y sets. Por ahora esta inicializado, pero cuando este listo se le guardaran los valores que se le pasen
-String secText, minText;
-var seconds, minutes;
+int secTraining = 15, minTraining = 0, secRest=15, minRest=0, secRoundRest = 10, minRoundRest = 0, sets=2, exercises = 2; //Valores para el circuito
+String secText, minText;  //Segundos y minutos para el widget Text
+var seconds, minutes; //Segundos y minutos que esta utilizando el temporizador actualmente
 
 
 class Timer_Page extends StatefulWidget{
-  final changeState;
+  final changeState; //Funcion pasada por parametro
   const Timer_Page({Key key, this.changeState}) : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class _Timer_Page extends State<Timer_Page>{
   var timerQueue = List<Duration>();
   Timer currentTimer;
 
-  //Create the sets
+  //Rellena la cola de duraciones
   void startSets() {
     timerQueue.add(Duration(seconds: 10));
     for (var i = 0; i < sets; i++) {
@@ -35,13 +35,13 @@ class _Timer_Page extends State<Timer_Page>{
     }
     startNextTimer();
   }
-  //
+  //Detiene el timer
   void stopTimer() {
     currentTimer.cancel();
     currentTimer = null;
     timerQueue.insert(0,Duration(seconds: seconds,minutes: minutes));
   }
-
+  //Funcion recursiva para correr el reloj
   void startNextTimer() {
     if (timerQueue.isEmpty) {
       return;
@@ -116,9 +116,9 @@ class _Timer_Page extends State<Timer_Page>{
                   if(isTimerActive == false){
                     isTimerActive = true;
                     if(timerQueue.isEmpty){
-                      startSets();
+                      startSets(); //Relleno la cola de duraciones
                     }else{
-                      startNextTimer();
+                      startNextTimer(); // Inicia el reloj con las duraciones que quedaron pendientes
                     }
                     setState(() {
                       icon = Icons.pause_circle_filled;
