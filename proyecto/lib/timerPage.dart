@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'time_card_list.dart';
+import 'stringAndNumbers.dart';
 
 int secTraining = 15, minTraining = 0, secRest=15, minRest=0, secRoundRest = 10, minRoundRest = 0, sets=2, exercises = 2; //Valores para el circuito
 String secText, minText;  //Segundos y minutos para el widget Text
@@ -151,22 +152,3 @@ class _Timer_Page extends State<Timer_Page>{
   }
 }
 
-//Convierte el segundo de entero a String
-String secToString(int seconds){
-  String num = seconds.toString();
-  if(seconds>9){
-    return num;
-  }else{
-    return "0$num";
-  }
-}
-
-//Convierte el minuto de entero a String
-String minToString(int minutes){
-  String num = minutes.toString();
-  if(minutes>9){
-    return num;
-  }else{
-    return "0$num";
-  }
-}

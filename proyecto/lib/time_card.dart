@@ -1,40 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
+import 'stringAndNumbers.dart';
 
-
-class TimeCard extends StatelessWidget {
-  String title, time;
+class TimeCard extends StatefulWidget {
+  String title,secText,minText;
   IconData cardIcon;
+  int sec, min;
+  TimeCard(this.cardIcon,this.title,this.sec,this.min);
 
-  TimeCard(this.cardIcon,this.title,this.time);
+  @override
+  _TimeCardState createState() => _TimeCardState();
+}
 
-
+class _TimeCardState extends State<TimeCard> {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       onPressed: () {
         Picker(
           adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
-            const NumberPickerColumn(begin: 0, end: 999, suffix: Text(' hours')),
-            const NumberPickerColumn(begin: 0, end: 60, suffix: Text(' minutes'), jump: 15),
+            const NumberPickerColumn(begin: 0, end: 5, ),
+            const NumberPickerColumn(begin: 0, end: 59, jump: 1),
           ]),
           delimiter: <PickerDelimiter>[
             PickerDelimiter(
               child: Container(
                 width: 30.0,
                 alignment: Alignment.center,
-                child: Icon(Icons.more_vert),
+                child: Text(":"),
               ),
             )
           ],
           hideHeader: true,
           confirmText: 'OK',
-          confirmTextStyle: TextStyle(inherit: false, color: Colors.red, fontSize: 22),
-          title: const Text('Select duration'),
-          selectedTextStyle: TextStyle(color: Colors.blue),
+          confirmTextStyle: TextStyle(inherit: false, color: Color(0xffec524b), fontSize: 22),
+          title: const Text('Seleccionar duración'),
+          selectedTextStyle: TextStyle(color: Color(0xff16697a)),
           onConfirm: (Picker picker, List<int> value) {
             // You get your duration here
-            Duration _duration = Duration(hours: picker.getSelectedValues()[0], minutes: picker.getSelectedValues()[1]);
+            Duration _duration = Duration(minutes: picker.getSelectedValues()[0], seconds: picker.getSelectedValues()[1]);
+            setState(() {
+              widget.sec = _duration.inSeconds % 60;
+              widget.min = _duration.inMinutes;
+              widget.secText = secToString(widget.sec);
+              widget.minText = minToString(widget.min);
+            });
           },
         ).showDialog(context);
       },
@@ -46,7 +56,7 @@ class TimeCard extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Container(
-                child:Icon(cardIcon,
+                child:Icon(widget.cardIcon,
                   size: 25,
                 )
             ),
@@ -54,7 +64,7 @@ class TimeCard extends StatelessWidget {
               flex: 1,
                 child:Container(
                   child: Text(
-                    title,
+                    widget.title,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -70,7 +80,7 @@ class TimeCard extends StatelessWidget {
                       right: (MediaQuery.of(context).size.width)/12
                   ),
                   child: Text(
-                    time,
+                    "${widget.minText}:${widget.secText}",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

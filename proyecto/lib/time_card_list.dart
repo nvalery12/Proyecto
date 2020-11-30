@@ -9,11 +9,11 @@ class TimeCardList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        TimeCard(Icons.watch_later_outlined, "Trabajo", "00:00"),
-        TimeCard(Icons.assignment_outlined, "Hola", "00:00"),
+        TimeCard(Icons.watch_later_outlined, "Trabajo", 10,5),
+    /*    TimeCard(Icons.assignment_outlined, "Hola", "00:00"),
         TimeCard(Icons.favorite, "Descanso", "00:00"),
         TimeCard(Icons.wifi_sharp, "Rondas", "2X"),
-        TimeCard(Icons.refresh, "Reinicio de la ronda", "10:00"),
+        TimeCard(Icons.refresh, "Reinicio de la ronda", "10:00"),*/
       ],
     );
   }
