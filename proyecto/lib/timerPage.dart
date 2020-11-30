@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'time_card_list.dart';
 import 'stringAndNumbers.dart';
 
-int secTraining = 15, minTraining = 0, secRest=15, minRest=0, secRoundRest = 10, minRoundRest = 0, sets=2, exercises = 2; //Valores para el circuito
+int secTraining, minTraining, secRest, minRest, secRoundRest , minRoundRest , sets, exercises; //Valores para el circuito
 String secText, minText;  //Segundos y minutos para el widget Text
 var seconds, minutes,actualColor; //Segundos y minutos que esta utilizando el temporizador actualmente
 
@@ -145,7 +145,7 @@ class _Timer_Page extends State<Timer_Page>{
           ),
           Align(
             alignment: Alignment.center,
-            child: TimeCardList(),
+            child: TimeCardList(secTraining,minTraining,secRest,minRest,secRoundRest,minRoundRest,sets,exercises),
           )
         ]
     );
