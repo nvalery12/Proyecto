@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 
 class Routine{
+  int id;
   String name;
   int secT;
   int minT;
@@ -12,7 +13,7 @@ class Routine{
   int sets;
   int exercise;
 
-  Routine(this.name, this.secT, this.minT, this.secRest, this.minRest,
+  Routine(this.id,this.name, this.secT, this.minT, this.secRest, this.minRest,
       this.secRound, this.minRound, this.sets, this.exercise);
 
   Map<String,dynamic> toMap(){
@@ -39,6 +40,7 @@ class Routine{
     minRound = map['minRound'];
     sets = map['sets'];
     exercise = map['exercise'];
+    id = map['id'];
   }
 }
 
