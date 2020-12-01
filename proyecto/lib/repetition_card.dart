@@ -29,6 +29,7 @@ class _RepetitionCardState extends State<RepetitionCard> {
             onConfirm: (Picker picker, List<int> value) {
               setState(() {
                 widget.repetition= picker.getSelectedValues()[0];
+                print("${widget.repetition}" + " ${widget.title} en repetition Card");
               });
             },
           ).showDialog(context);

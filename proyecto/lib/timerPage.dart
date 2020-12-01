@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'time_card_list.dart';
 import 'stringAndNumbers.dart';
+import 'timerHIITclass.dart';
 
-int secTraining, minTraining, secRest, minRest, secRoundRest , minRoundRest , sets, exercises; //Valores para el circuito
 String secText, minText;  //Segundos y minutos para el widget Text
 var seconds, minutes,actualColor; //Segundos y minutos que esta utilizando el temporizador actualmente
 
@@ -23,19 +23,20 @@ class _Timer_Page extends State<Timer_Page>{
   var timerQueue = List<Duration>();
   var colorsQueue = List<int>();
   Timer currentTimer;
+  TimerHIIT timerHIIT = new TimerHIIT();
 
   //Rellena la cola de duraciones
   void startSets() {
     timerQueue.add(Duration(seconds: 10));
     colorsQueue.add(0);
-    for (var i = 0; i < sets; i++) {
-      for (var j = 0; j < exercises; j++) {
-        timerQueue.add(Duration(seconds: secTraining,minutes:minTraining ));
+    for (var i = 0; i < timerHIIT.sets; i++) {
+      for (var j = 0; j < timerHIIT.exercises; j++) {
+        timerQueue.add(Duration(seconds: timerHIIT.secTraining,minutes:timerHIIT.minTraining ));
         colorsQueue.add(1);
-        timerQueue.add(Duration(seconds:secRest ,minutes:minRest ));
+        timerQueue.add(Duration(seconds:timerHIIT.secRest ,minutes:timerHIIT.minRest ));
         colorsQueue.add(2);
       }
-      timerQueue.add(Duration(seconds:secRoundRest ,minutes: minRoundRest ));
+      timerQueue.add(Duration(seconds:timerHIIT.secRoundRest ,minutes: timerHIIT.minRoundRest ));
       colorsQueue.add(3);
     }
     startNextTimer();
@@ -43,7 +44,7 @@ class _Timer_Page extends State<Timer_Page>{
   //Detiene el timer
   void stopTimer() {
     currentTimer.cancel();
-    currentTimer = null;
+    //currentTimer = null;
     timerQueue.insert(0,Duration(seconds: seconds,minutes: minutes));
     colorsQueue.insert(0, actualColor);
   }
@@ -81,6 +82,7 @@ class _Timer_Page extends State<Timer_Page>{
       });
     });
   }
+
 
   bool isTimerActive = false;
   @override
@@ -145,7 +147,7 @@ class _Timer_Page extends State<Timer_Page>{
           ),
           Align(
             alignment: Alignment.center,
-            child: TimeCardList(secTraining,minTraining,secRest,minRest,secRoundRest,minRoundRest,sets,exercises),
+            child: TimeCardList(timerHIIT),
           )
         ]
     );
