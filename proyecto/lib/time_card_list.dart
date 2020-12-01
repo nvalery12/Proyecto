@@ -16,7 +16,7 @@ class TimeCardList extends StatelessWidget {
         TimeCard(Icons.watch_later_outlined, "Trabajo", timerHIIT.secTraining,timerHIIT.minTraining),
         TimeCard(Icons.assignment_outlined, "Descanso",timerHIIT.secRest,timerHIIT.minRest),
         RepetitionCard(Icons.add, "Ejercicios", timerHIIT.exercises),
-        TimeCard(Icons.refresh, "Reinicio de la ronda", timerHIIT.secRoundRest,timerHIIT.minRoundRest),
+        TimeCard(Icons.refresh, "Reinicio de ronda", timerHIIT.secRoundRest,timerHIIT.minRoundRest),
         RepetitionCard(Icons.wifi_sharp, "Rondas",timerHIIT.sets),
       ],
     );
