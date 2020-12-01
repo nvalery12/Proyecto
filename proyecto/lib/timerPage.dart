@@ -118,12 +118,12 @@ class _Timer_Page extends State<Timer_Page>{
               padding: EdgeInsets.all(100),
             ),
           ),
-          Center(
+          Align(
             child: IconButton( //Boton de reloj del centro
               icon: Icon(icon,
                 color: Color(0xffec524b),
               ),
-              iconSize: 125,
+              iconSize: 115,
                 onPressed: (){ //Cuando presiono
                   if(isTimerActive == false){
                     isTimerActive = true;

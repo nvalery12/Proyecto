@@ -38,7 +38,7 @@ class _RepetitionCardState extends State<RepetitionCard> {
         textColor: Color(0xff16697a),
         child:Container(
             width: (MediaQuery.of(context).size.width)/1.25,
-            height: (MediaQuery.of(context).size.height)/11,
+            height: (MediaQuery.of(context).size.height)/13,
             child: Row(
                 children: <Widget>[
                   Container(
