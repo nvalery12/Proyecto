@@ -67,18 +67,13 @@ class _RepetitionCardState extends State<RepetitionCard> {
                             left: (MediaQuery.of(context).size.width)/11,
                             right: (MediaQuery.of(context).size.width)/12
                         ),
-                        child: this.widget.repetition != null ? Text(
+                        child: Text(
                           "${widget.repetition}X",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
-                        ): Text(
-                          "0X",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        ),
                         ),
                       )
                   ),

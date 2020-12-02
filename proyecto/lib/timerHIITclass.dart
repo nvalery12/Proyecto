@@ -1,12 +1,12 @@
 class TimerHIIT{
-  int secTraining;
-  int minTraining;
-  int secRest;
-  int minRest;
-  int secRoundRest;
-  int minRoundRest;
-  int sets;
-  int exercises;
+  int secTraining = 0;
+  int minTraining = 0;
+  int secRest = 0;
+  int minRest = 0;
+  int secRoundRest = 0;
+  int minRoundRest = 0;
+  int sets = 0;
+  int exercises = 0;
 
   updateTrainingTime(int sec, int min){
       this.secTraining = sec;
