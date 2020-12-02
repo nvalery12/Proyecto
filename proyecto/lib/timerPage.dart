@@ -84,11 +84,10 @@ class _Timer_Page extends State<Timer_Page>{
     });
   }
 
-
+  var icon = Icons.play_circle_fill;
   bool isTimerActive = false;
   @override
   Widget build(BuildContext context) {
-    var icon = Icons.play_circle_fill;
     return Stack(
         children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
           Align(

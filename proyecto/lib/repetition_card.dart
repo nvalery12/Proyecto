@@ -24,9 +24,9 @@ class _RepetitionCardState extends State<RepetitionCard> {
             ]),
             hideHeader: true,
             confirmText: 'OK',
-            confirmTextStyle: TextStyle(inherit: false, color: Colors.red, fontSize: 22),
+            confirmTextStyle: TextStyle(inherit: false, color: Color(0xffec524b), fontSize: 22),
             title: const Text('Select '),
-            selectedTextStyle: TextStyle(color: Colors.blue),
+            selectedTextStyle: TextStyle(color: Color(0xff16697a)),
             onConfirm: (Picker picker, List<int> value) {
               setState(() {
                 widget.repetition= picker.getSelectedValues()[0];
