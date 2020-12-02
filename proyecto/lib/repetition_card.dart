@@ -6,7 +6,8 @@ class RepetitionCard extends StatefulWidget {
   String title;
   IconData cardIcon;
   int repetition;
-  RepetitionCard(this.cardIcon,this.title,this.repetition);
+  final function;
+  RepetitionCard(this.cardIcon,this.title,this.repetition,this.function);
 
   @override
   _RepetitionCardState createState() => _RepetitionCardState();
@@ -30,6 +31,7 @@ class _RepetitionCardState extends State<RepetitionCard> {
               setState(() {
                 widget.repetition= picker.getSelectedValues()[0];
                 print("${widget.repetition}" + " ${widget.title} en repetition Card");
+                widget.function(widget.repetition);
               });
             },
           ).showDialog(context);

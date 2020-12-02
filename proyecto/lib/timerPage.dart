@@ -25,6 +25,7 @@ class _Timer_Page extends State<Timer_Page>{
   Timer currentTimer;
   TimerHIIT timerHIIT = new TimerHIIT();
 
+
   //Rellena la cola de duraciones
   void startSets() {
     timerQueue.add(Duration(seconds: 10));

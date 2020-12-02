@@ -6,7 +6,8 @@ class TimeCard extends StatefulWidget {
   String title,secText,minText;
   IconData cardIcon;
   int sec, min;
-  TimeCard(this.cardIcon,this.title,this.sec,this.min);
+  final function;
+  TimeCard(this.cardIcon,this.title,this.sec,this.min,this.function);
 
   @override
   _TimeCardState createState() => _TimeCardState();
@@ -42,6 +43,7 @@ class _TimeCardState extends State<TimeCard> {
             setState(() {
               widget.sec = _duration.inSeconds % 60;
               widget.min = _duration.inMinutes;
+              widget.function(widget.sec,widget.min);
               widget.secText = secToString(widget.sec);
               widget.minText = minToString(widget.min);
             });
