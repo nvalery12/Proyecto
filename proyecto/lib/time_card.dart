@@ -81,8 +81,14 @@ class _TimeCardState extends State<TimeCard> {
                       left: (MediaQuery.of(context).size.width)/11,
                       right: (MediaQuery.of(context).size.width)/12
                   ),
-                  child: Text(
+                  child: this.widget.min != null ? Text(
                     "${widget.minText}:${widget.secText}",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ): Text(
+                    "00:00",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

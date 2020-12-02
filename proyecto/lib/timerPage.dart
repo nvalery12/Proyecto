@@ -25,7 +25,6 @@ class _Timer_Page extends State<Timer_Page>{
   Timer currentTimer;
   TimerHIIT timerHIIT = new TimerHIIT();
 
-
   //Rellena la cola de duraciones
   void startSets() {
     timerQueue.add(Duration(seconds: 10));
@@ -106,8 +105,15 @@ class _Timer_Page extends State<Timer_Page>{
           ),
           Align(
             child: Container(
-              child: Text( //Texto de numeros
+              child: this.timerHIIT.minTraining != null ? Text( //Texto de numeros
                 "$minText:$secText",
+                style: TextStyle(
+                    fontSize: 74,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                ),
+              ):Text(
+                "00:00",
                 style: TextStyle(
                     fontSize: 74,
                     fontWeight: FontWeight.bold,
