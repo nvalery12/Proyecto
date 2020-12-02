@@ -3,7 +3,7 @@ import 'package:flutter_picker/flutter_picker.dart';
 import 'stringAndNumbers.dart';
 
 class TimeCard extends StatefulWidget {
-  String title,secText,minText;
+  String title;
   IconData cardIcon;
   int sec, min;
   final function;
@@ -43,8 +43,6 @@ class _TimeCardState extends State<TimeCard> {
               widget.sec = _duration.inSeconds % 60;
               widget.min = _duration.inMinutes;
               widget.function(widget.sec,widget.min);
-              widget.secText = secToString(widget.sec);
-              widget.minText = minToString(widget.min);
             });
           },
         ).showDialog(context);
