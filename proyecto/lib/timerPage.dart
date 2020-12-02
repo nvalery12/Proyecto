@@ -105,7 +105,7 @@ class _Timer_Page extends State<Timer_Page>{
           ),
           Align(
             child: Container(
-              child: this.timerHIIT.minTraining != null ? Text( //Texto de numeros
+              child: minText != null ? Text( //Texto de numeros
                 "$minText:$secText",
                 style: TextStyle(
                     fontSize: 74,

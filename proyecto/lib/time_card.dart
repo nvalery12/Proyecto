@@ -38,7 +38,6 @@ class _TimeCardState extends State<TimeCard> {
           title: const Text('Seleccionar duración'),
           selectedTextStyle: TextStyle(color: Color(0xff16697a)),
           onConfirm: (Picker picker, List<int> value) {
-            // You get your duration here
             Duration _duration = Duration(minutes: picker.getSelectedValues()[0], seconds: picker.getSelectedValues()[1]);
             setState(() {
               widget.sec = _duration.inSeconds % 60;
@@ -81,7 +80,7 @@ class _TimeCardState extends State<TimeCard> {
                       left: (MediaQuery.of(context).size.width)/11,
                       right: (MediaQuery.of(context).size.width)/12
                   ),
-                  child: this.widget.min != null ? Text(
+                  child: this.widget.minText != null ? Text(
                     "${widget.minText}:${widget.secText}",
                     style: TextStyle(
                       fontSize: 20,
