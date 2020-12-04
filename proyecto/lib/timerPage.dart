@@ -154,6 +154,20 @@ class _Timer_Page extends State<Timer_Page>{
           Align(
             alignment: Alignment.center,
             child: TimeCardList(timerHIIT),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: RawMaterialButton(
+              onPressed: stopTimer,
+              elevation: 2.0,
+              fillColor: Colors.white,
+              child: Icon(
+                Icons.add,
+                size: 35.0,
+              ),
+              padding: EdgeInsets.all(15.0),
+              shape: CircleBorder(),
+            ),
           )
         ]
     );
