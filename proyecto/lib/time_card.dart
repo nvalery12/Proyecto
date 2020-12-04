@@ -40,9 +40,18 @@ class _TimeCardState extends State<TimeCard> {
           onConfirm: (Picker picker, List<int> value) {
             Duration _duration = Duration(minutes: picker.getSelectedValues()[0], seconds: picker.getSelectedValues()[1]);
             setState(() {
-              widget.sec = _duration.inSeconds % 60;
-              widget.min = _duration.inMinutes;
-              widget.function(widget.sec,widget.min);
+              if( ((_duration.inSeconds % 60) > 2) && ((_duration.inMinutes) == 0) ){
+                widget.sec = _duration.inSeconds % 60;
+                widget.min = _duration.inMinutes;
+                widget.function(widget.sec,widget.min);
+              }else{
+                final scaffold = Scaffold.of(context);
+                scaffold.showSnackBar(
+                  SnackBar(
+                    content: const Text('Valor invalido!'),
+                  ),
+                );
+              }
             });
           },
         ).showDialog(context);
