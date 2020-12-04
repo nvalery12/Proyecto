@@ -33,12 +33,21 @@ class _MyHomePageState extends State<MyHomePage> {
       state = newState;
     });
   }
+  int currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
+
+    final tabs = [
+      Center(child: Text("Aqui va mis rutinas"),),
+      Timer_Page(changeState: chageState),
+      Center(child: Text("Aqui va ajustes"),),
+    ];
+
     return Scaffold(
-      body: Timer_Page(changeState: chageState),
+      body: tabs[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
@@ -54,7 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         selectedItemColor: Color(0xffec524b),
-
+        onTap: (index){
+          setState(() {
+            currentIndex = index;
+          });
+        },
       ),
       backgroundColor: Color(backgroundColors[state]),  //El color se va cambiando dependiendo del state
     );
