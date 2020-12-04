@@ -24,6 +24,8 @@ class _Timer_Page extends State<Timer_Page>{
   var colorsQueue = List<int>();
   Timer currentTimer;
   TimerHIIT timerHIIT = new TimerHIIT();
+  var icon = Icons.play_circle_fill;
+  bool isTimerActive = false;
 
   //Rellena la cola de duraciones
   void startSets() {
@@ -36,8 +38,10 @@ class _Timer_Page extends State<Timer_Page>{
         timerQueue.add(Duration(seconds:timerHIIT.secRest ,minutes:timerHIIT.minRest ));
         colorsQueue.add(2);
       }
-      timerQueue.add(Duration(seconds:timerHIIT.secRoundRest ,minutes: timerHIIT.minRoundRest ));
-      colorsQueue.add(3);
+      if(timerHIIT.sets == i){
+        timerQueue.add(Duration(seconds:timerHIIT.secRoundRest ,minutes: timerHIIT.minRoundRest ));
+        colorsQueue.add(3);
+      }
     }
     startNextTimer();
   }
@@ -51,6 +55,11 @@ class _Timer_Page extends State<Timer_Page>{
   //Funcion recursiva para correr el reloj
   void startNextTimer() {
     if (timerQueue.isEmpty) {
+      this.widget.changeState(0);
+      isTimerActive = false;
+      setState(() {
+        icon = Icons.play_circle_fill;
+      });
       return;
     }
 
@@ -83,8 +92,6 @@ class _Timer_Page extends State<Timer_Page>{
     });
   }
 
-  var icon = Icons.play_circle_fill;
-  bool isTimerActive = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
