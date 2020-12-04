@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/database.dart';
+import 'timerHIITclass.dart';
 
 class RoutinePage extends StatefulWidget{
   @override
@@ -41,6 +42,7 @@ class _RoutinePage extends State<RoutinePage>{
   _ShowList(BuildContext context){
     return FutureBuilder(
       future: db.getAllRoutines(),
+      initialData: List<Routine>(),
       builder: (BuildContext context, AsyncSnapshot<List<Routine>> snapshot){
         if(snapshot.hasData){
           return ListView(
@@ -57,7 +59,32 @@ class _RoutinePage extends State<RoutinePage>{
     );
   }
 
-  _addRoutine(){
-
+  _addRoutine() {
+    RoutineDatabase db = RoutineDatabase();
+    TimerHIIT timerHIIT = TimerHIIT();
+    showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            children: <Widget>[
+              TextField(
+                decoration:
+                InputDecoration(icon: Icon(Icons.add_circle_outline)),
+                onSubmitted: (text) {
+                  setState(() {
+                    var routine = Routine(
+                      text,
+                      timerHIIT,
+                      id: -1
+                    );
+                    db.insert(routine);
+                    Navigator.pop(context);
+                  });
+                },
+              )
+            ],
+          );
+        });
   }
+
 }

@@ -1,45 +1,38 @@
 import 'dart:async';
 import 'package:sqflite/sqflite.dart';
+import 'timerHIITclass.dart';
 
 class Routine{
   int id;
   String name;
-  int secT;
-  int minT;
-  int secRest;
-  int minRest;
-  int secRound;
-  int minRound;
-  int sets;
-  int exercise;
+  TimerHIIT timerHIIT;
 
-  Routine(this.id,this.name, this.secT, this.minT, this.secRest, this.minRest,
-      this.secRound, this.minRound, this.sets, this.exercise);
+  Routine(this.name, this.timerHIIT,{this.id});
 
   Map<String,dynamic> toMap(){
     return {
       'name': name,
-      'secT': secT,
-      'minT': minT,
-      'secRest': secRest,
-      'minReset': minRest,
-      'secRound': secRound,
-      'minRound': minRound,
-      'sets': sets,
-      'exercise': exercise,
+      'secT': timerHIIT.secTraining,
+      'minT': timerHIIT.minTraining,
+      'secRest': timerHIIT.secRest,
+      'minReset': timerHIIT.minRest,
+      'secRound': timerHIIT.secRoundRest,
+      'minRound': timerHIIT.minRoundRest,
+      'sets': timerHIIT.sets,
+      'exercise': timerHIIT.exercises,
     };
   }
 
   Routine.fromMap(Map<String, dynamic> map) {
     name = map['name'];
-    secT = map['secT'];
-    minT = map['minT'];
-    secRest = map['secRest'];
-    minRest = map['minRest'];
-    secRound = map['secRound'];
-    minRound = map['minRound'];
-    sets = map['sets'];
-    exercise = map['exercise'];
+    timerHIIT.secTraining = map['secT'];
+    timerHIIT.minTraining = map['minT'];
+    timerHIIT.secRest = map['secRest'];
+    timerHIIT.minRest = map['minRest'];
+    timerHIIT.secRoundRest = map['secRound'];
+    timerHIIT.minRoundRest = map['minRound'];
+    timerHIIT.sets = map['sets'];
+    timerHIIT.exercises = map['exercise'];
     id = map['id'];
   }
 }

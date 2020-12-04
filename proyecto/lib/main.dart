@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'timerPage.dart';
+import 'routinePage.dart';
 
 var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2,0xff28df99]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores
@@ -39,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     final tabs = [
-      Center(child: Text("Aqui va mis rutinas"),),
+      RoutinePage(),
       Timer_Page(changeState: chageState),
       Center(child: Text("Aqui va ajustes"),),
     ];
