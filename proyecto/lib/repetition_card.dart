@@ -20,7 +20,7 @@ class _RepetitionCardState extends State<RepetitionCard> {
         onPressed: () {
           Picker(
             adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
-              const NumberPickerColumn(begin: 0, end: 30,),
+              const NumberPickerColumn(begin: 1, end: 30,),
             ]),
             hideHeader: true,
             confirmText: 'OK',
@@ -29,20 +29,16 @@ class _RepetitionCardState extends State<RepetitionCard> {
             selectedTextStyle: TextStyle(color: Color(0xff16697a)),
             onConfirm: (Picker picker, List<int> value) {
               setState(() {
-                if((widget.repetition > 2) && (widget.title == "Ejercicios")){
-                  widget.repetition= picker.getSelectedValues()[0];
-                  widget.function(widget.repetition);
-                }else if((widget.repetition > 0) && (widget.title == "Rondas")){
-                  widget.repetition= picker.getSelectedValues()[0];
-                  widget.function(widget.repetition);
-                }else{
+                if((picker.getSelectedValues()[0] < 2) && (widget.title == "Ejercicios")){
                   final scaffold = Scaffold.of(context);
                   scaffold.showSnackBar(
                     SnackBar(
                       content: const Text('Valor invalido!'),
-                      duration: Duration(seconds: 1),
                     ),
                   );
+                }else{
+                  widget.repetition= picker.getSelectedValues()[0];
+                  widget.function(widget.repetition);
                 }
 
               });
