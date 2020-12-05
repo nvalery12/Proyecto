@@ -56,7 +56,7 @@ class _TimeCardState extends State<TimeCard> {
           },
         ).showDialog(context);
       },
-      color: Color(0xfff5b461),
+      color: Color(0xfff3eac2),
       textColor: Color(0xff16697a),
       child:Container(
         width: (MediaQuery.of(context).size.width)/1.25,

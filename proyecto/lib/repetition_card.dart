@@ -29,24 +29,14 @@ class _RepetitionCardState extends State<RepetitionCard> {
             selectedTextStyle: TextStyle(color: Color(0xff16697a)),
             onConfirm: (Picker picker, List<int> value) {
               setState(() {
-                if((widget.repetition > 2) && (widget.title == "Ejercicios") || ((widget.repetition > 0) && (widget.title == "Rondas"))){
                   widget.repetition= picker.getSelectedValues()[0];
                   print("${widget.repetition}" + " ${widget.title} en repetition Card");
                   widget.function(widget.repetition);
-                }else{
-                  final scaffold = Scaffold.of(context);
-                  scaffold.showSnackBar(
-                    SnackBar(
-                      content: const Text('Valor invalido!'),
-                    ),
-                  );
-                }
-
               });
             },
           ).showDialog(context);
         },
-        color: Color(0xfff5b461),
+        color: Color(0xfff3eac2),
         textColor: Color(0xff16697a),
         child:Container(
             width: (MediaQuery.of(context).size.width)/1.25,
