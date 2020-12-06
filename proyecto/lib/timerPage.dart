@@ -94,8 +94,8 @@ class _Timer_Page extends State<Timer_Page>{
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
+    return Column(
+        children: <Widget>[
           Align(
             child: Container(
               child: minText != null ? Text( //Texto de numeros
@@ -114,12 +114,12 @@ class _Timer_Page extends State<Timer_Page>{
                 ),
               ),
               alignment: Alignment.topCenter,
-              padding: EdgeInsets.fromLTRB(0, 120, 0, 30),  //Padding del temporizador
+              padding: EdgeInsets.fromLTRB(0, 100, 0, 30),  //Padding del temporizador
             ),
           ),
           Align(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 40, 0, 200),  //Padding del icono
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),  //Padding del icono
               child: IconButton( //Boton de reloj del centro
                 icon: Icon(icon,
                   color: Color(0xfff8f1f1),
