@@ -70,7 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
       ),
-      backgroundColor: Color(backgroundColors[state]),  //El color se va cambiando dependiendo del state
     );
   }
 }
