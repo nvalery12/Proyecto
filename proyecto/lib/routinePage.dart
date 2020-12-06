@@ -61,7 +61,7 @@ class _RoutinePage extends State<RoutinePage> {
     );
   }
 
-  _ShowList(BuildContext context) {
+  /* _ShowList(BuildContext context) {
     return FutureBuilder(
       future: db.getAllRoutines(),
       initialData: List<Routine>(),
@@ -81,11 +81,11 @@ class _RoutinePage extends State<RoutinePage> {
           );
         }
       },
-    );
+    );*/
 
-    void _addRoutine() {
-      TimerHIIT timerHIIT = TimerHIIT();
-      showDialog(
+  void _addRoutine() {
+    TimerHIIT timerHIIT = TimerHIIT();
+    showDialog(
         context: context,
         builder: (context) {
           return SimpleDialog(
@@ -95,8 +95,17 @@ class _RoutinePage extends State<RoutinePage> {
                     InputDecoration(icon: Icon(Icons.add_circle_outline)),
                 onSubmitted: (text) {
                   setState(() {
-                    var routine = Routine();
-                    //db.insert(routine);
+                    var routine = Routine(
+                        name: text,
+                        secT: timerHIIT.secTraining,
+                        minT: timerHIIT.minTraining,
+                        secRest: timerHIIT.secRest,
+                        minRest: timerHIIT.minRest,
+                        secRound: timerHIIT.secRoundRest,
+                        minRound: timerHIIT.minRoundRest,
+                        sets: timerHIIT.sets,
+                        exercise: timerHIIT.exercises);
+                    _routineHelper.insertRoutine(routine);
                     Navigator.pop(context);
                   });
                 },
@@ -104,10 +113,10 @@ class _RoutinePage extends State<RoutinePage> {
             ],
           );
         });
-    }
   }
+}
 
-  _addRoutine() {
+/*_addRoutine() {
     //RoutineDatabase db = RoutineDatabase();
     TimerHIIT timerHIIT = TimerHIIT();
     showDialog(
@@ -120,7 +129,7 @@ class _RoutinePage extends State<RoutinePage> {
                     InputDecoration(icon: Icon(Icons.add_circle_outline)),
                 onSubmitted: (text) {
                   setState(() {
-                    var routine = Routine(text, timerHIIT, id: -1);
+                    //var routine = Routine(text, timerHIIT, id: -1);
                     //db.insert(routine);
                     Navigator.pop(context);
                   });
@@ -129,5 +138,4 @@ class _RoutinePage extends State<RoutinePage> {
             ],
           );
         });
-  }
-}
+  }*/
