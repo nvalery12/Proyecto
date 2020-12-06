@@ -38,7 +38,7 @@ class _Timer_Page extends State<Timer_Page>{
         timerQueue.add(Duration(seconds:timerHIIT.secRest ,minutes:timerHIIT.minRest ));
         colorsQueue.add(2);
       }
-      if(timerHIIT.sets == i){
+      if(timerHIIT.sets > i){
         timerQueue.add(Duration(seconds:timerHIIT.secRoundRest ,minutes: timerHIIT.minRoundRest ));
         colorsQueue.add(3);
       }
@@ -96,20 +96,6 @@ class _Timer_Page extends State<Timer_Page>{
   Widget build(BuildContext context) {
     return Stack(
         children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
-          /*Align(
-            alignment: Alignment.bottomCenter,  //Alineo el hijo al centro abajo
-            child: Container(  //Rectangulo cuadrado blanco
-              height: (MediaQuery.of(context).size.height)-300,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only( // redondea solo...
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50)
-                ),
-              ),
-            ),
-          ),*/
           Align(
             child: Container(
               child: minText != null ? Text( //Texto de numeros
@@ -165,20 +151,6 @@ class _Timer_Page extends State<Timer_Page>{
             alignment: Alignment.center,
             child: TimeCardList(timerHIIT),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: RawMaterialButton(
-              onPressed: stopTimer,
-              elevation: 2.0,
-              fillColor: Color(0xfff8f1f1),
-              child: Icon(
-                Icons.add,
-                size: 35.0,
-              ),
-              padding: EdgeInsets.all(15.0),
-              shape: CircleBorder(),
-            ),
-          )
         ]
     );
   }
