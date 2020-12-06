@@ -132,30 +132,33 @@ class _Timer_Page extends State<Timer_Page>{
             ),
           ),
           Align(
-            child: IconButton( //Boton de reloj del centro
-              icon: Icon(icon,
-                color: Color(0xfff8f1f1),
-              ),
-              iconSize: 115,
-                onPressed: (){ //Cuando presiono
-                  if(isTimerActive == false){
-                    isTimerActive = true;
-                    if(timerQueue.isEmpty){
-                      startSets(); //Relleno la cola de duraciones
+            child: Padding(                                     //Padding del icono
+              padding: const EdgeInsets.fromLTRB(0,100,0,200),
+              child: IconButton( //Boton de reloj del centro
+                icon: Icon(icon,
+                  color: Color(0xfff8f1f1),
+                ),
+                iconSize: 115,
+                  onPressed: (){ //Cuando presiono
+                    if(isTimerActive == false){
+                      isTimerActive = true;
+                      if(timerQueue.isEmpty){
+                        startSets(); //Relleno la cola de duraciones
+                      }else{
+                        startNextTimer(); // Inicia el reloj con las duraciones que quedaron pendientes
+                      }
+                      setState(() {
+                        icon = Icons.pause_circle_filled;
+                      });
                     }else{
-                      startNextTimer(); // Inicia el reloj con las duraciones que quedaron pendientes
+                      isTimerActive = false;
+                      stopTimer();
+                      setState(() {
+                        icon = Icons.play_circle_fill;
+                      });
                     }
-                    setState(() {
-                      icon = Icons.pause_circle_filled;
-                    });
-                  }else{
-                    isTimerActive = false;
-                    stopTimer();
-                    setState(() {
-                      icon = Icons.play_circle_fill;
-                    });
-                  }
-                },
+                  },
+              ),
             ),
           ),
           Align(
