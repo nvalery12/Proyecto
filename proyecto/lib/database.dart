@@ -35,7 +35,7 @@ class RoutineHelper {
 
   Future<Database> initializeDatabase() async {
     var dir = await getDatabasesPath();
-    var path = dir + "rutinas.db";
+    var path = dir + "rutina.db";
 
     var database = await openDatabase(
       path,

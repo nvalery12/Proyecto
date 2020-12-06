@@ -37,15 +37,15 @@ class Routine {
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
-        "name": name,
-        "secT": secT,
-        "minT": minT,
-        "secRest": secRest,
-        "minRest": minRest,
-        "secRound": secRound,
-        "minRound": minRound,
-        "sets": sets,
-        "exercise": exercise,
+        "id": this.id,
+        "name": this.name,
+        "secT": this.secT,
+        "minT": this.minT,
+        "secRest": this.secRest,
+        "minRest": this.minRest,
+        "secRound": this.secRound,
+        "minRound": this.minRound,
+        "sets": this.sets,
+        "exercise": this.exercise,
       };
 }

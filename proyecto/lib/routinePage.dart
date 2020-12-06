@@ -32,10 +32,7 @@ class _RoutinePage extends State<RoutinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('fiTime'),
-      ),
-      body: FutureBuilder<List<Routine>>(
+      /*body: FutureBuilder<List<Routine>>(
         future: _routines,
         builder: (BuildContext context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
@@ -52,6 +49,9 @@ class _RoutinePage extends State<RoutinePage> {
             );
           }
         },
+      ),*/
+      body: Center(
+        child: Text('Probando'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addRoutine,
@@ -105,6 +105,7 @@ class _RoutinePage extends State<RoutinePage> {
                         minRound: timerHIIT.minRoundRest,
                         sets: timerHIIT.sets,
                         exercise: timerHIIT.exercises);
+                    print("Objeto: " + routine.name);
                     _routineHelper.insertRoutine(routine);
                     Navigator.pop(context);
                   });
