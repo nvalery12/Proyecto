@@ -83,12 +83,29 @@ class _RepetitionCardState extends State<RepetitionCard> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      )
-                  ),
+                      ),
+                    ),
+                    Expanded(
+                        flex: -1 ,
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              left: (MediaQuery.of(context).size.width)/11,
+                              right: (MediaQuery.of(context).size.width)/12
+                          ),
+                          child:Text(
+                            "${widget.repetition}X",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                    ),
 
-                ]
-            )
-        )
+                  ]
+              )
+          )
+      ),
     );
   }
 }
