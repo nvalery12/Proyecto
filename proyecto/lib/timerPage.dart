@@ -96,20 +96,20 @@ class _Timer_Page extends State<Timer_Page>{
   Widget build(BuildContext context) {
     return Stack(
         children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
-          Align(
+          /*Align(
             alignment: Alignment.bottomCenter,  //Alineo el hijo al centro abajo
             child: Container(  //Rectangulo cuadrado blanco
               height: (MediaQuery.of(context).size.height)-300,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Color(0xfff8f1f1),
                 borderRadius: BorderRadius.only( // redondea solo...
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50)
                 ),
               ),
             ),
-          ),
+          ),*/
           Align(
             child: Container(
               child: minText != null ? Text( //Texto de numeros
@@ -134,7 +134,7 @@ class _Timer_Page extends State<Timer_Page>{
           Align(
             child: IconButton( //Boton de reloj del centro
               icon: Icon(icon,
-                color: Color(0xffec524b),
+                color: Color(0xfff8f1f1),
               ),
               iconSize: 115,
                 onPressed: (){ //Cuando presiono
@@ -159,7 +159,7 @@ class _Timer_Page extends State<Timer_Page>{
             ),
           ),
           Align(
-            alignment: Alignment.center,
+            alignment: Alignment.center,  //alineamiento de cards
             child: TimeCardList(timerHIIT),
           ),
           Align(
@@ -167,7 +167,7 @@ class _Timer_Page extends State<Timer_Page>{
             child: RawMaterialButton(
               onPressed: stopTimer,
               elevation: 2.0,
-              fillColor: Colors.white,
+              fillColor: Color(0xfff8f1f1),
               child: Icon(
                 Icons.add,
                 size: 35.0,

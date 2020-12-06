@@ -16,7 +16,7 @@ class TimeCard extends StatefulWidget {
 class _TimeCardState extends State<TimeCard> {
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return RaisedButton( ////aquiiiiiiiii
       onPressed: () {
         Picker(
           adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
@@ -56,7 +56,9 @@ class _TimeCardState extends State<TimeCard> {
           },
         ).showDialog(context);
       },
-      color: Color(0xfff3eac2),
+      color: Color(0xfff8f1f1), //color de time cards
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)
+        ),
       textColor: Color(0xff16697a),
       child:Container(
         width: (MediaQuery.of(context).size.width)/1.25,
