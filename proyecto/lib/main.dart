@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'timerPage.dart';
 import 'routinePage.dart';
 
-var backgroundColors = [0xffec524b,0xfff5b461,0xfff3eac2,0xff28df99]; //lista de colores, cada posicion es un color distinto
+var backgroundColors = [0xffec524b,0xff28df99,0xfff5b461,0xff16697a]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores
 
 void main() {
@@ -47,28 +47,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       body: tabs[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Mis temporizadores',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.watch_later_outlined),
-            label: 'Temporizador',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.miscellaneous_services),
-            label: 'Configuracion',
-          ),
-        ],
-        selectedItemColor: Color(0xffec524b),
-        onTap: (index){
-          setState(() {
-            currentIndex = index;
-          });
-        },
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+        child: BottomNavigationBar(
+          currentIndex: currentIndex,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Mis temporizadores',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.watch_later_outlined),
+              label: 'Temporizador',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.miscellaneous_services),
+              label: 'Configuracion',
+            ),
+          ],
+          selectedItemColor: Color(0xffec524b),
+          onTap: (index){
+            setState(() {
+              currentIndex = index;
+            });
+          },
+        ),
       ),
       backgroundColor: Color(backgroundColors[state]),  //El color se va cambiando dependiendo del state
     );

@@ -96,7 +96,7 @@ class _Timer_Page extends State<Timer_Page>{
   Widget build(BuildContext context) {
     return Stack(
         children: <Widget>[ //Uso stack, porque apilare cosas, una sobre la otra
-          Align(
+          /*Align(
             alignment: Alignment.bottomCenter,  //Alineo el hijo al centro abajo
             child: Container(  //Rectangulo cuadrado blanco
               height: (MediaQuery.of(context).size.height)-300,
@@ -109,7 +109,7 @@ class _Timer_Page extends State<Timer_Page>{
                 ),
               ),
             ),
-          ),
+          ),*/
           Align(
             child: Container(
               child: minText != null ? Text( //Texto de numeros
@@ -117,45 +117,48 @@ class _Timer_Page extends State<Timer_Page>{
                 style: TextStyle(
                     fontSize: 74,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white
+                    color: Color(0xfff8f1f1)
                 ),
               ):Text(
                 "00:00",
                 style: TextStyle(
                     fontSize: 74,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white
+                    color: Color(0xfff8f1f1)
                 ),
               ),
               alignment: Alignment.topCenter,
-              padding: EdgeInsets.all(100),
+              padding: EdgeInsets.fromLTRB(0, 120, 0, 30),  //Padding del temporizador
             ),
           ),
           Align(
-            child: IconButton( //Boton de reloj del centro
-              icon: Icon(icon,
-                color: Color(0xffec524b),
-              ),
-              iconSize: 115,
-                onPressed: (){ //Cuando presiono
-                  if(isTimerActive == false){
-                    isTimerActive = true;
-                    if(timerQueue.isEmpty){
-                      startSets(); //Relleno la cola de duraciones
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 40, 0, 200),  //Padding del icono
+              child: IconButton( //Boton de reloj del centro
+                icon: Icon(icon,
+                  color: Color(0xfff8f1f1),
+                ),
+                iconSize: 115,
+                  onPressed: (){ //Cuando presiono
+                    if(isTimerActive == false){
+                      isTimerActive = true;
+                      if(timerQueue.isEmpty){
+                        startSets(); //Relleno la cola de duraciones
+                      }else{
+                        startNextTimer(); // Inicia el reloj con las duraciones que quedaron pendientes
+                      }
+                      setState(() {
+                        icon = Icons.pause_circle_filled;
+                      });
                     }else{
-                      startNextTimer(); // Inicia el reloj con las duraciones que quedaron pendientes
+                      isTimerActive = false;
+                      stopTimer();
+                      setState(() {
+                        icon = Icons.play_circle_fill;
+                      });
                     }
-                    setState(() {
-                      icon = Icons.pause_circle_filled;
-                    });
-                  }else{
-                    isTimerActive = false;
-                    stopTimer();
-                    setState(() {
-                      icon = Icons.play_circle_fill;
-                    });
-                  }
-                },
+                  },
+              ),
             ),
           ),
           Align(
@@ -167,7 +170,7 @@ class _Timer_Page extends State<Timer_Page>{
             child: RawMaterialButton(
               onPressed: stopTimer,
               elevation: 2.0,
-              fillColor: Colors.white,
+              fillColor: Color(0xfff8f1f1),
               child: Icon(
                 Icons.add,
                 size: 35.0,
