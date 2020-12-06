@@ -1,60 +1,86 @@
-import 'dart:async';
+import 'package:proyecto/routine.dart';
 import 'package:sqflite/sqflite.dart';
-import 'timerHIITclass.dart';
+import 'package:sqflite/sqlite_api.dart';
 
-class Routine{
-  int id;
-  String name;
-  TimerHIIT timerHIIT;
+final String tableRoutines = 'routine';
+final String columnId = 'id';
+final String columnName = 'name';
+final String columnSecT = 'secT';
+final String columnMinT = 'minT';
+final String columnSecRest = 'secRest';
+final String columMinRest = 'minRest';
+final String columnSecRound = 'secRound';
+final String columnMinRound = 'minRound';
+final String columnSets = 'sets';
+final String columnExercise = 'excercise';
 
-  Routine(this.name, this.timerHIIT,{this.id});
+class RoutineHelper {
+  static Database _database;
+  static RoutineHelper _routineHelper;
 
-  Map<String,dynamic> toMap(){
-    return {
-      'name': name,
-      'secT': timerHIIT.secTraining,
-      'minT': timerHIIT.minTraining,
-      'secRest': timerHIIT.secRest,
-      'minReset': timerHIIT.minRest,
-      'secRound': timerHIIT.secRoundRest,
-      'minRound': timerHIIT.minRoundRest,
-      'sets': timerHIIT.sets,
-      'exercise': timerHIIT.exercises,
-    };
+  RoutineHelper._createInstance();
+  factory RoutineHelper() {
+    if (_routineHelper == null) {
+      _routineHelper = RoutineHelper._createInstance();
+    }
+    return _routineHelper;
   }
 
-  Routine.fromMap(Map<String, dynamic> map) {
-    name = map['name'];
-    timerHIIT.secTraining = map['secT'];
-    timerHIIT.minTraining = map['minT'];
-    timerHIIT.secRest = map['secRest'];
-    timerHIIT.minRest = map['minRest'];
-    timerHIIT.secRoundRest = map['secRound'];
-    timerHIIT.minRoundRest = map['minRound'];
-    timerHIIT.sets = map['sets'];
-    timerHIIT.exercises = map['exercise'];
-    id = map['id'];
-  }
-}
-
-class RoutineDatabase {
-  Database _db;
-
-  initDB() async{
-    _db= await openDatabase('my_db.db',version: 1,
-        onCreate: (Database db, int version){
-          db.execute('CREATE TABLE routine (id INTEGER PRIMARY KEY, name TEXT, secT INTEGER, minT INTEGER, secRest INTEGER, minRest INTEGER, secRound INTEGER, minRound INTEGER, sets INTEGER, exercise INTEGER);');
-        }
-        );
+  Future<Database> get database async {
+    if (_database == null) {
+      _database = await initializeDatabase();
+    }
+    return _database;
   }
 
-  insert(Routine routine) async{
-    _db.insert('routine', routine.toMap());
+  Future<Database> initializeDatabase() async {
+    var dir = await getDatabasesPath();
+    var path = dir + "rutinas.db";
+
+    var database = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) {
+        db.execute('''
+          create table $tableRoutines ( 
+          $columnId integer primary key autoincrement, 
+          $columnName text not null,
+          $columnSecT integer,
+          $columnMinT integer,
+          $columnSecRest integer,
+          $columMinRest integer,
+          $columnSecRound integer,
+          $columnMinRound integer,
+          $columnSets integer,
+          $columnExercise integer)
+        ''');
+      },
+    );
+    return database;
   }
 
-  Future<List<Routine>> getAllRoutines() async{
-    List<Map<String,dynamic>> result= await _db.query('routine');
-    
-    return result.map((map) => Routine.fromMap(map)).toList();
+  void insertRoutine(Routine rutina) async {
+    var db = await this.database;
+    var result = await db.insert(tableRoutines, rutina.toMap());
+    print('result : $result');
+  }
+
+  Future<List<Routine>> getAlarms() async {
+    List<Routine> _routines = [];
+
+    var db = await this.database;
+    var result = await db.query(tableRoutines);
+    result.forEach((element) {
+      var routine = Routine.fromMap(element);
+      _routines.add(routine);
+    });
+
+    return _routines;
+  }
+
+  Future<int> delete(int id) async {
+    var db = await this.database;
+    return await db
+        .delete(tableRoutines, where: '$columnId = ?', whereArgs: [id]);
   }
 }

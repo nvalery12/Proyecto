@@ -1,30 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/database.dart';
+import 'routine.dart';
 import 'timerHIITclass.dart';
 
-class RoutinePage extends StatefulWidget{
+class RoutinePage extends StatefulWidget {
+  RoutineHelper _routineHelper = RoutineHelper();
+  Future<List<Routine>> _routines;
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return _RoutinePage();
   }
-
 }
 
-class _RoutinePage extends State<RoutinePage>{
-  RoutineDatabase db = RoutineDatabase();
+class _RoutinePage extends State<RoutinePage> {
+  RoutineHelper _routineHelper = RoutineHelper();
+  Future<List<Routine>> _routines;
+
+  @override
+  void initState() {
+    _routineHelper.initializeDatabase().then((value) {
+      print('------database intialized');
+      loadRoutines();
+    });
+  }
+
+  void loadRoutines() {
+    _routines = _routineHelper.getAlarms();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('fiTime'),
       ),
-      body: FutureBuilder(
-        future: db.initDB(),
-        builder: (BuildContext context, snapshot){
-          if(snapshot.connectionState == ConnectionState.done){
-            return _ShowList(context);
-          }else{
+      body: FutureBuilder<List<Routine>>(
+        future: _routines,
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return ListView(
+              children: snapshot.data.map<Widget>((elemento) {
+                ListTile(
+                  title: Text(elemento.name),
+                );
+              }),
+            );
+          } else {
             return Center(
               child: CircularProgressIndicator(),
             );
@@ -39,28 +61,54 @@ class _RoutinePage extends State<RoutinePage>{
     );
   }
 
-  _ShowList(BuildContext context){
+  _ShowList(BuildContext context) {
     return FutureBuilder(
       future: db.getAllRoutines(),
       initialData: List<Routine>(),
-      builder: (BuildContext context, AsyncSnapshot<List<Routine>> snapshot){
-        if(snapshot.hasData){
+      builder: (BuildContext context, AsyncSnapshot<List<Routine>> snapshot) {
+        if (snapshot.hasData) {
           return ListView(
             children: <Widget>[
-              for (Routine routine in snapshot.data) ListTile(title: Text(routine.name),)
+              for (Routine routine in snapshot.data)
+                ListTile(
+                  title: Text(routine.name),
+                )
             ],
           );
-        } else{
+        } else {
           return Center(
             child: Text('Agrega rutinas.'),
           );
         }
       },
     );
+
+    void _addRoutine() {
+      TimerHIIT timerHIIT = TimerHIIT();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            children: <Widget>[
+              TextField(
+                decoration:
+                    InputDecoration(icon: Icon(Icons.add_circle_outline)),
+                onSubmitted: (text) {
+                  setState(() {
+                    var routine = Routine();
+                    //db.insert(routine);
+                    Navigator.pop(context);
+                  });
+                },
+              )
+            ],
+          );
+        });
+    }
   }
 
   _addRoutine() {
-    RoutineDatabase db = RoutineDatabase();
+    //RoutineDatabase db = RoutineDatabase();
     TimerHIIT timerHIIT = TimerHIIT();
     showDialog(
         context: context,
@@ -69,15 +117,11 @@ class _RoutinePage extends State<RoutinePage>{
             children: <Widget>[
               TextField(
                 decoration:
-                InputDecoration(icon: Icon(Icons.add_circle_outline)),
+                    InputDecoration(icon: Icon(Icons.add_circle_outline)),
                 onSubmitted: (text) {
                   setState(() {
-                    var routine = Routine(
-                      text,
-                      timerHIIT,
-                      id: -1
-                    );
-                    db.insert(routine);
+                    var routine = Routine(text, timerHIIT, id: -1);
+                    //db.insert(routine);
                     Navigator.pop(context);
                   });
                 },
@@ -86,5 +130,4 @@ class _RoutinePage extends State<RoutinePage>{
           );
         });
   }
-
 }
