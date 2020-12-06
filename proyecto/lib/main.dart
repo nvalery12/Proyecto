@@ -27,6 +27,50 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool valor = false;
+  final player = AudioCache();
+  bool switchPitido = false, switchVibrar = false, switchInicio = false, switchBloqueo = false;
+
+  _PatternVibrate() {
+    HapticFeedback.vibrate();
+
+    sleep(
+      const Duration(milliseconds: 200),
+    );
+
+    HapticFeedback.heavyImpact();
+
+    sleep(
+      const Duration(milliseconds: 500),
+    );
+
+    HapticFeedback.heavyImpact();
+
+    sleep(
+      const Duration(milliseconds: 200),
+    );
+
+    HapticFeedback.vibrate();
+
+    sleep(
+      const Duration(milliseconds: 500),
+    );
+
+    HapticFeedback.heavyImpact();
+
+    sleep(
+      const Duration(milliseconds: 500),
+    );
+
+    HapticFeedback.heavyImpact();
+
+    sleep(
+      const Duration(milliseconds: 200),
+    );
+    HapticFeedback.heavyImpact();
+    HapticFeedback.vibrate();
+    HapticFeedback.vibrate();
+  }
 
   /*Algoritmo que se encarga de cambiar colores de fondo*/
   chageState(int newState){
@@ -70,7 +114,6 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
       ),
-      backgroundColor: Color(backgroundColors[state]),  //El color se va cambiando dependiendo del state
     );
   }
 }
