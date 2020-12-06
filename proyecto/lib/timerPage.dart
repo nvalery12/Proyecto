@@ -114,13 +114,13 @@ class _Timer_Page extends State<Timer_Page>{
                 ),
               ),
               alignment: Alignment.topCenter,
-              padding: EdgeInsets.fromLTRB(0, 100, 0, 30),  //Padding del temporizador
+              padding: EdgeInsets.only(
+                top: (MediaQuery.of(context).size.height)*0.1
+              ),  //Padding del temporizador
             ),
           ),
           Align(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),  //Padding del icono
-              child: IconButton( //Boton de reloj del centro
+            child: IconButton( //Boton de reloj del centro
                 icon: Icon(icon,
                   color: Color(0xfff8f1f1),
                 ),
@@ -146,10 +146,14 @@ class _Timer_Page extends State<Timer_Page>{
                   },
               ),
             ),
-          ),
           Align(
             alignment: Alignment.center,
-            child: TimeCardList(timerHIIT),
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: (MediaQuery.of(context).size.height)*0.01
+              ),
+              child: TimeCardList(timerHIIT),
+            ),
           ),
         ]
     );
