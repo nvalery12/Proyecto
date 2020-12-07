@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'time_card_list.dart';
 import 'stringAndNumbers.dart';
@@ -9,7 +10,7 @@ import 'package:audioplayers/audioplayers.dart';
 
 String secText, minText;  //Segundos y minutos para el widget Text
 var seconds, minutes,actualColor; //Segundos y minutos que esta utilizando el temporizador actualmente
-int soundIndex = 6;
+int soundIndex;
 
 const sounds = [
   'preparadoYa.wav',
@@ -123,7 +124,23 @@ class _Timer_Page extends State<Timer_Page>{
       });
     });
   }
-
+  void restartTimer(){
+    this.widget.changeState(0);
+    minText = secText = null;
+    currentTimer.cancel();
+    timerHIIT.updateExercises(0);
+    timerHIIT.updateRestTime(0, 0);
+    timerHIIT.updateSets(0);
+    timerHIIT.updateTrainingTime(0, 0);
+    timerHIIT.updateRoundRest(0, 0);
+    timerQueue.clear();
+    colorsQueue.clear();
+    soundsQueue.clear();
+    icon = Icons.play_circle_fill;
+    isTimerActive = false;
+    setState(() {
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -152,35 +169,51 @@ class _Timer_Page extends State<Timer_Page>{
               ),  //Padding del temporizador
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: IconButton( //Boton de reloj del centro
-                icon: Icon(icon,
-                  color: Color(0xfff8f1f1),
-                ),
-                iconSize: 115,
-                  onPressed: (){ //Cuando presiono
-                    if(isTimerActive == false){
-                      isTimerActive = true;
-                      if(timerQueue.isEmpty){
-                        startSets(); //Relleno la cola de duraciones
-                      }else{
-                        startNextTimer(); // Inicia el reloj con las duraciones que quedaron pendientes
-                      }
-                      setState(() {
-                        if(isTimerActive == true)
-                          icon = Icons.pause_circle_filled;
-                      });
-                    }else{
-                      isTimerActive = false;
-                      stopTimer();
-                      setState(() {
-                        icon = Icons.play_circle_fill;
-                      });
-                    }
-                  },
-              ),
+          Container(
+            padding: EdgeInsets.only(
+              right: (MediaQuery.of(context).size.width)/5,
+              left: (MediaQuery.of(context).size.width)/4
             ),
+            child: Row(
+              children: [
+               IconButton( //Boton de reloj del centro
+                    icon: Icon(icon,
+                      color: Color(0xfff8f1f1),
+                    ),
+                    iconSize: 115,
+                    onPressed: (){ //Cuando presiono
+                      if(isTimerActive == false){
+                        isTimerActive = true;
+                        if(timerQueue.isEmpty){
+                          startSets(); //Relleno la cola de duraciones
+                        }else{
+                          startNextTimer(); // Inicia el reloj con las duraciones que quedaron pendientes
+                        }
+                        setState(() {
+                          if(isTimerActive == true)
+                            icon = Icons.pause_circle_filled;
+                        });
+                      }else{
+                        isTimerActive = false;
+                        stopTimer();
+                        setState(() {
+                          icon = Icons.play_circle_fill;
+                        });
+                      }
+                    },
+                  ),
+                IconButton(
+                      icon: Icon(Icons.refresh,
+                                  color: Colors.white30,
+                      ),
+                      iconSize: 30,
+                      onPressed: (){
+                        restartTimer();
+                      }
+                  ),
+              ],
+            ),
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
