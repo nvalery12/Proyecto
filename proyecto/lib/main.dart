@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'timerPage.dart';
-import 'settingsPage.dart';
 
 var backgroundColors = [0xffec524b,0xff28df99,0xfff5b461,0xff16697a]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores

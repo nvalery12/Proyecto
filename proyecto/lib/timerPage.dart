@@ -55,20 +55,20 @@ class _Timer_Page extends State<Timer_Page>{
       });
       return;
     }
-    timerQueue.add(Duration(seconds: 10));
+    timerQueue.add(Duration(seconds: 11,));
     colorsQueue.add(0);
     soundsQueue.add(0);
     for (var i = 0; i < timerHIIT.sets; i++) {
       for (var j = 0; j < timerHIIT.exercises; j++) {
-        timerQueue.add(Duration(seconds: timerHIIT.secTraining,minutes:timerHIIT.minTraining ));
+        timerQueue.add(Duration(seconds: timerHIIT.secTraining+1,minutes:timerHIIT.minTraining ));
         colorsQueue.add(1);
         soundsQueue.add(1);
-        timerQueue.add(Duration(seconds:timerHIIT.secRest ,minutes:timerHIIT.minRest ));
+        timerQueue.add(Duration(seconds:timerHIIT.secRest + 1,minutes:timerHIIT.minRest ));
         colorsQueue.add(2);
         soundsQueue.add(0);
       }
       if(timerHIIT.sets > i){
-        timerQueue.add(Duration(seconds:timerHIIT.secRoundRest ,minutes: timerHIIT.minRoundRest ));
+        timerQueue.add(Duration(seconds:timerHIIT.secRoundRest + 1,minutes: timerHIIT.minRoundRest ));
         colorsQueue.add(3);
         soundsQueue.add(1);
       }
