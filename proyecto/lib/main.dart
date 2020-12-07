@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'timerPage.dart';
-import 'routinePage.dart';
 
 var backgroundColors = [0xffec524b,0xff28df99,0xfff5b461,0xff16697a]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores
@@ -34,28 +33,21 @@ class _MyHomePageState extends State<MyHomePage> {
       state = newState;
     });
   }
-  int currentIndex = 1;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
 
     final tabs = [
-      RoutinePage(),
       Timer_Page(changeState: chageState),
       Center(child: Text("Aqui va ajustes"),),
     ];
 
     return Scaffold(
       body: tabs[currentIndex],
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-        child: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Mis temporizadores',
-            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.watch_later_outlined),
               label: 'Temporizador',
@@ -72,7 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
         ),
-      ),
       backgroundColor: Color(backgroundColors[state]),  //El color se va cambiando dependiendo del state
     );
   }

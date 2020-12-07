@@ -166,7 +166,8 @@ class _Timer_Page extends State<Timer_Page>{
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.only(
-                //bottom: (MediaQuery.of(context).size.height)*0.01
+                top: (MediaQuery.of(context).size.height)*0.04,
+                bottom: (MediaQuery.of(context).size.height)*0.01
               ),
               child: TimeCardList(timerHIIT),
             ),
