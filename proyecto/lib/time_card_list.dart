@@ -14,10 +14,10 @@ class TimeCardList extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         TimeCard(Icons.watch_later_outlined, "Trabajo", timerHIIT.secTraining,timerHIIT.minTraining,timerHIIT.updateTrainingTime),
-        TimeCard(Icons.assignment_outlined, "Descanso",timerHIIT.secRest,timerHIIT.minRest,timerHIIT.updateRestTime),
-        RepetitionCard(Icons.add, "Ejercicios", timerHIIT.exercises,timerHIIT.updateExercises),
+        TimeCard(Icons.favorite_border, "Descanso",timerHIIT.secRest,timerHIIT.minRest,timerHIIT.updateRestTime),
+        RepetitionCard(Icons.alarm_add_outlined, "Ejercicios", timerHIIT.exercises,timerHIIT.updateExercises),
         TimeCard(Icons.refresh, "Reinicio de ronda", timerHIIT.secRoundRest,timerHIIT.minRoundRest,timerHIIT.updateRoundRest),
-        RepetitionCard(Icons.wifi_sharp, "Rondas",timerHIIT.sets,timerHIIT.updateSets),
+        RepetitionCard(Icons.add_box_outlined, "Rondas",timerHIIT.sets,timerHIIT.updateSets),
       ],
     );
   }
