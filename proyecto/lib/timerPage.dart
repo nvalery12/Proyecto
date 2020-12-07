@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'time_card_list.dart';
 import 'stringAndNumbers.dart';
 import 'timerHIITclass.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 String secText, minText;  //Segundos y minutos para el widget Text
 var seconds, minutes,actualColor; //Segundos y minutos que esta utilizando el temporizador actualmente
@@ -27,6 +29,10 @@ class _Timer_Page extends State<Timer_Page>{
   var icon = Icons.play_circle_fill;
   bool isTimerActive = false;
 
+  Future<AudioPlayer> playLocalAsset() async {
+    AudioCache cache = new AudioCache();
+    return await cache.play("pitido.wav");
+  }
   //Rellena la cola de duraciones
   void startSets() {
     if(((timerHIIT.secTraining == 0) && (timerHIIT.minTraining == 0)) || ((timerHIIT.secRest == 0) && (timerHIIT.minRest == 0)) || ((timerHIIT.secRoundRest == 0) && (timerHIIT.minRoundRest == 0)) || (timerHIIT.sets == 0) || (timerHIIT.exercises == 0)){
@@ -99,6 +105,7 @@ class _Timer_Page extends State<Timer_Page>{
         minText = minToString(minutes);
         secText = secToString(seconds);
         if (currentTimer == null) {
+          playLocalAsset();
           startNextTimer();
         }
       });
