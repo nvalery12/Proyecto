@@ -47,11 +47,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/pitido.wav
-    - assets/empieza.wav
-    - assets/granTrabajo.wav
-    - assets/1.wav
-    - assets/2.wav
-    - assets/3.wav
+    - assets/pitido2.wav
 
   # To add assets to your application, add an assets section, like this:
   # assets:

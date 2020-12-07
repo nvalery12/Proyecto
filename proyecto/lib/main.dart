@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'timerPage.dart';
+import 'settingsPage.dart';
 
 var backgroundColors = [0xffec524b,0xff28df99,0xfff5b461,0xff16697a]; //lista de colores, cada posicion es un color distinto
 int state = 0; //Sirve para llevar un control de la lista de colores
@@ -26,6 +27,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool switchPitido, switchInicio ;
+
+  updateSwitch(bool switchPitido, bool switchInicio){
+    this.switchPitido = switchPitido;
+    this.switchInicio = switchInicio;
+  }
 
   /*Algoritmo que se encarga de cambiar colores de fondo*/
   chageState(int newState){
@@ -38,32 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    final tabs = [
-      Timer_Page(changeState: chageState),
-      Center(child: Text("Aqui va ajustes"),),
-    ];
-
     return Scaffold(
-      body: tabs[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.watch_later_outlined),
-              label: 'Temporizador',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.miscellaneous_services),
-              label: 'Configuracion',
-            ),
-          ],
-          selectedItemColor: Color(0xffec524b),
-          onTap: (index){
-            setState(() {
-              currentIndex = index;
-            });
-          },
-        ),
+      body: Timer_Page(changeState: chageState,),
       backgroundColor: Color(backgroundColors[state]),  //El color se va cambiando dependiendo del state
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'time_card_list.dart';
 import 'stringAndNumbers.dart';
@@ -8,20 +9,16 @@ import 'package:audioplayers/audioplayers.dart';
 
 String secText, minText;  //Segundos y minutos para el widget Text
 var seconds, minutes,actualColor; //Segundos y minutos que esta utilizando el temporizador actualmente
-int soundIndex;
+int soundIndex = 6;
 
 const sounds = [
-  '1.wav',
-  '2.wav',
-  '3.wav',
-  'empieza.wav',
-  'granTrabajo.wav',
   'pitido.wav',
+  'pitido2.wav',
 ];
 
 class Timer_Page extends StatefulWidget{
   final changeState; //Funcion pasada por parametro
-  const Timer_Page({Key key, this.changeState}) : super(key: key);
+  Timer_Page({Key key, this.changeState,}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -33,6 +30,7 @@ class Timer_Page extends StatefulWidget{
 class _Timer_Page extends State<Timer_Page>{
   var timerQueue = List<Duration>();
   var colorsQueue = List<int>();
+  var soundsQueue = Queue<int>();
   Timer currentTimer;
   TimerHIIT timerHIIT = new TimerHIIT();
   var icon = Icons.play_circle_fill;
@@ -59,16 +57,20 @@ class _Timer_Page extends State<Timer_Page>{
     }
     timerQueue.add(Duration(seconds: 10));
     colorsQueue.add(0);
+    soundsQueue.add(0);
     for (var i = 0; i < timerHIIT.sets; i++) {
       for (var j = 0; j < timerHIIT.exercises; j++) {
         timerQueue.add(Duration(seconds: timerHIIT.secTraining,minutes:timerHIIT.minTraining ));
         colorsQueue.add(1);
+        soundsQueue.add(1);
         timerQueue.add(Duration(seconds:timerHIIT.secRest ,minutes:timerHIIT.minRest ));
         colorsQueue.add(2);
+        soundsQueue.add(0);
       }
       if(timerHIIT.sets > i){
         timerQueue.add(Duration(seconds:timerHIIT.secRoundRest ,minutes: timerHIIT.minRoundRest ));
         colorsQueue.add(3);
+        soundsQueue.add(1);
       }
     }
     startNextTimer();
@@ -114,6 +116,7 @@ class _Timer_Page extends State<Timer_Page>{
         minText = minToString(minutes);
         secText = secToString(seconds);
         if (currentTimer == null) {
+          soundIndex = soundsQueue.removeFirst();
           playLocalAsset();
           startNextTimer();
         }
