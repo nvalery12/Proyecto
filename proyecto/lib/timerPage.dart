@@ -29,6 +29,19 @@ class _Timer_Page extends State<Timer_Page>{
 
   //Rellena la cola de duraciones
   void startSets() {
+    if(((timerHIIT.secTraining == 0) && (timerHIIT.minTraining == 0)) || ((timerHIIT.secRest == 0) && (timerHIIT.minRest == 0)) || ((timerHIIT.secRoundRest == 0) && (timerHIIT.minRoundRest == 0)) || (timerHIIT.sets == 0) || (timerHIIT.exercises == 0)){
+      final scaffold = Scaffold.of(context);
+      scaffold.showSnackBar(
+        SnackBar(
+          content: const Text('Ingrese valores!'),
+        ),
+      );
+      isTimerActive = false;
+      setState(() {
+        icon = Icons.play_circle_fill;
+      });
+      return;
+    }
     timerQueue.add(Duration(seconds: 10));
     colorsQueue.add(0);
     for (var i = 0; i < timerHIIT.sets; i++) {
@@ -97,6 +110,7 @@ class _Timer_Page extends State<Timer_Page>{
     return Column(
         children: <Widget>[
           Align(
+            alignment: Alignment.topCenter,
             child: Container(
               child: minText != null ? Text( //Texto de numeros
                 "$minText:$secText",
@@ -120,6 +134,7 @@ class _Timer_Page extends State<Timer_Page>{
             ),
           ),
           Align(
+            alignment: Alignment.center,
             child: IconButton( //Boton de reloj del centro
                 icon: Icon(icon,
                   color: Color(0xfff8f1f1),
@@ -134,7 +149,8 @@ class _Timer_Page extends State<Timer_Page>{
                         startNextTimer(); // Inicia el reloj con las duraciones que quedaron pendientes
                       }
                       setState(() {
-                        icon = Icons.pause_circle_filled;
+                        if(isTimerActive == true)
+                          icon = Icons.pause_circle_filled;
                       });
                     }else{
                       isTimerActive = false;
@@ -147,10 +163,10 @@ class _Timer_Page extends State<Timer_Page>{
               ),
             ),
           Align(
-            alignment: Alignment.center,
+            alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.only(
-                bottom: (MediaQuery.of(context).size.height)*0.01
+                //bottom: (MediaQuery.of(context).size.height)*0.01
               ),
               child: TimeCardList(timerHIIT),
             ),
