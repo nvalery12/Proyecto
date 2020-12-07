@@ -8,7 +8,16 @@ import 'package:audioplayers/audioplayers.dart';
 
 String secText, minText;  //Segundos y minutos para el widget Text
 var seconds, minutes,actualColor; //Segundos y minutos que esta utilizando el temporizador actualmente
+int soundIndex;
 
+const sounds = [
+  '1.wav',
+  '2.wav',
+  '3.wav',
+  'empieza.wav',
+  'granTrabajo.wav',
+  'pitido.wav',
+];
 
 class Timer_Page extends StatefulWidget{
   final changeState; //Funcion pasada por parametro
@@ -31,7 +40,7 @@ class _Timer_Page extends State<Timer_Page>{
 
   Future<AudioPlayer> playLocalAsset() async {
     AudioCache cache = new AudioCache();
-    return await cache.play("1.wav");
+    return await cache.play(sounds[soundIndex]);
   }
   //Rellena la cola de duraciones
   void startSets() {
