@@ -46,10 +46,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/preparado.wav
-    - assets/ya.wav
-    - assets/tiempoTerminado.wav
-    - assets/preparadoYa.wav
+    - assets/pitido.wav
+    - assets/pitido2.wav
 
   # To add assets to your application, add an assets section, like this:
   # assets:

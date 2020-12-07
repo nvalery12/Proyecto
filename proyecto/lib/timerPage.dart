@@ -13,8 +13,8 @@ var seconds, minutes,actualColor; //Segundos y minutos que esta utilizando el te
 int soundIndex;
 
 const sounds = [
-  'preparadoYa.wav',
-  'tiempoTerminado.wav',
+  'pitido.wav',
+  'pitido2.wav',
 ];
 
 class Timer_Page extends StatefulWidget{
@@ -124,6 +124,7 @@ class _Timer_Page extends State<Timer_Page>{
       });
     });
   }
+  //Reinicia a sus valores iniciales
   void restartTimer(){
     this.widget.changeState(0);
     minText = secText = null;
