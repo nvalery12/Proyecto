@@ -31,7 +31,7 @@ class _Timer_Page extends State<Timer_Page>{
 
   Future<AudioPlayer> playLocalAsset() async {
     AudioCache cache = new AudioCache();
-    return await cache.play("pitido.wav");
+    return await cache.play("1.wav");
   }
   //Rellena la cola de duraciones
   void startSets() {
