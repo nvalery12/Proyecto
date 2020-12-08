@@ -79,7 +79,6 @@ class _Timer_Page extends State<Timer_Page>{
   //Detiene el timer
   void stopTimer() {
     currentTimer.cancel();
-    //currentTimer = null;
     timerQueue.insert(0,Duration(seconds: seconds,minutes: minutes));
     colorsQueue.insert(0, actualColor);
   }
@@ -142,6 +141,7 @@ class _Timer_Page extends State<Timer_Page>{
     setState(() {
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -23,7 +23,7 @@ class _TimeCardState extends State<TimeCard> {
           Picker(
             adapter: NumberPickerAdapter(data: <NumberPickerColumn>[
               const NumberPickerColumn(begin: 0, end: 5, ),
-              const NumberPickerColumn(begin: 0, end: 59, jump: 1),
+              const NumberPickerColumn(begin: 0, end: 59,),
             ]),
             delimiter: <PickerDelimiter>[
               PickerDelimiter(
