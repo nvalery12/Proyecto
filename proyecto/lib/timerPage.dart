@@ -41,6 +41,7 @@ class _Timer_Page extends State<Timer_Page>{
     AudioCache cache = new AudioCache();
     return await cache.play(sounds[soundIndex]);
   }
+
   //Rellena la cola de duraciones
   void startSets() {
     if(((timerHIIT.secTraining == 0) && (timerHIIT.minTraining == 0)) || ((timerHIIT.secRest == 0) && (timerHIIT.minRest == 0)) || ((timerHIIT.secRoundRest == 0) && (timerHIIT.minRoundRest == 0)) || (timerHIIT.sets == 0) || (timerHIIT.exercises == 0)){
@@ -76,12 +77,14 @@ class _Timer_Page extends State<Timer_Page>{
     }
     startNextTimer();
   }
+
   //Detiene el timer
   void stopTimer() {
     currentTimer.cancel();
     timerQueue.insert(0,Duration(seconds: seconds,minutes: minutes));
     colorsQueue.insert(0, actualColor);
   }
+
   //Funcion recursiva para correr el reloj
   void startNextTimer() {
     if (timerQueue.isEmpty) {
@@ -123,6 +126,7 @@ class _Timer_Page extends State<Timer_Page>{
       });
     });
   }
+
   //Reinicia a sus valores iniciales
   void restartTimer(){
     this.widget.changeState(0);
@@ -222,7 +226,9 @@ class _Timer_Page extends State<Timer_Page>{
                 top: (MediaQuery.of(context).size.height)*0.04,
                 bottom: (MediaQuery.of(context).size.height)*0.01
               ),
-              child: TimeCardList(timerHIIT),
+              child: isTimerActive != true ?
+                TimeCardList(timerHIIT):
+                  null,
             ),
           ),
         ]

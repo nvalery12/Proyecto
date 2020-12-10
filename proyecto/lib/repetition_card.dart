@@ -27,7 +27,7 @@ class _RepetitionCardState extends State<RepetitionCard> {
               hideHeader: true,
               confirmText: 'OK',
               confirmTextStyle: TextStyle(inherit: false, color: Color(0xffec524b), fontSize: 22),
-              title: const Text('Select '),
+              title: const Text('Seleccionar cantidad'),
               selectedTextStyle: TextStyle(color: Color(0xff16697a)),
               onConfirm: (Picker picker, List<int> value) {
                 setState(() {
