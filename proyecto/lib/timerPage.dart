@@ -71,7 +71,7 @@ class _Timer_Page extends State<Timer_Page>{
       }
       if(timerHIIT.sets > i){
         timerQueue.add(Duration(seconds:timerHIIT.secRoundRest + 1,minutes: timerHIIT.minRoundRest ));
-        colorsQueue.add(3);
+        colorsQueue.add(0);
         soundsQueue.add(1);
       }
     }
