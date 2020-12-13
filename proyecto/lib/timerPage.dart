@@ -39,6 +39,7 @@ class _Timer_Page extends State<Timer_Page>{
 
   Future<AudioPlayer> playLocalAsset() async {
     AudioCache cache = new AudioCache();
+    cache.clearCache();
     return await cache.play(sounds[soundIndex]);
   }
 
@@ -65,14 +66,20 @@ class _Timer_Page extends State<Timer_Page>{
         timerQueue.add(Duration(seconds: timerHIIT.secTraining+1,minutes:timerHIIT.minTraining ));
         colorsQueue.add(1);
         soundsQueue.add(1);
-        timerQueue.add(Duration(seconds:timerHIIT.secRest + 1,minutes:timerHIIT.minRest ));
-        colorsQueue.add(2);
-        soundsQueue.add(0);
+        if(j != timerHIIT.exercises - 1) {
+          timerQueue.add(Duration(
+              seconds: timerHIIT.secRest + 1, minutes: timerHIIT.minRest));
+          colorsQueue.add(2);
+          soundsQueue.add(0);
+        }
+        else{
+          print("Entro");
+        }
       }
-      if(timerHIIT.sets > i){
+      if(i != timerHIIT.sets - 1){
         timerQueue.add(Duration(seconds:timerHIIT.secRoundRest + 1,minutes: timerHIIT.minRoundRest ));
         colorsQueue.add(0);
-        soundsQueue.add(1);
+        soundsQueue.add(0);
       }
     }
     startNextTimer();
