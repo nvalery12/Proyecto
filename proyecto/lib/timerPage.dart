@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:screen/screen.dart';
 import 'time_card_list.dart';
 import 'stringAndNumbers.dart';
 import 'timerHIITclass.dart';
@@ -205,14 +204,12 @@ class _Timer_Page extends State<Timer_Page>{
                           if(isTimerActive == true)
                             icon = Icons.pause_circle_filled;
                         });
-                        Screen.keepOn(true);
                       }else{
                         isTimerActive = false;
                         stopTimer();
                         setState(() {
                           icon = Icons.play_circle_fill;
                         });
-                        Screen.keepOn(false);
                       }
                     },
                   ),
