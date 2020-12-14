@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'timerPage.dart';
 
 var backgroundColors = [0xffec524b,0xff28df99,0xff3f52e3,0xfff5d97e]; //lista de colores, cada posicion es un color distinto
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
         title: 'FiTime',
         home: MyHomePage()
