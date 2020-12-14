@@ -1,3 +1,5 @@
+import 'stringAndNumbers.dart';
+
 class TimerHIIT{
   int secTraining = 0;
   int minTraining = 0;
@@ -30,4 +32,10 @@ class TimerHIIT{
   updateExercises(int exercises){
     this.exercises=exercises;
   }
+/*
+  updateTotalTime(){
+    Duration durationTotal = Duration(seconds: (((secTraining + secRest) * exercises) + secRoundRest) * sets, minutes: (((minTraining + minRest) * exercises) + minRoundRest) * sets);
+    minTotal = durationTotal.inMinutes;
+    secTotal = durationTotal.inSeconds % 60;
+  }*/
 }

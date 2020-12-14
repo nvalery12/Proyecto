@@ -26,12 +26,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool switchPitido, switchInicio ;
-
-  updateSwitch(bool switchPitido, bool switchInicio){
-    this.switchPitido = switchPitido;
-    this.switchInicio = switchInicio;
-  }
 
   /*Algoritmo que se encarga de cambiar colores de fondo*/
   chageState(int newState){
@@ -39,7 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
       state = newState;
     });
   }
-  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {

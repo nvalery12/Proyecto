@@ -39,8 +39,10 @@ class _Timer_Page extends State<Timer_Page>{
 
   Future<AudioPlayer> playLocalAsset() async {
     AudioCache cache = new AudioCache();
+    cache.clearCache();
     return await cache.play(sounds[soundIndex]);
   }
+
   //Rellena la cola de duraciones
   void startSets() {
     if(((timerHIIT.secTraining == 0) && (timerHIIT.minTraining == 0)) || ((timerHIIT.secRest == 0) && (timerHIIT.minRest == 0)) || ((timerHIIT.secRoundRest == 0) && (timerHIIT.minRoundRest == 0)) || (timerHIIT.sets == 0) || (timerHIIT.exercises == 0)){
@@ -64,25 +66,29 @@ class _Timer_Page extends State<Timer_Page>{
         timerQueue.add(Duration(seconds: timerHIIT.secTraining+1,minutes:timerHIIT.minTraining ));
         colorsQueue.add(1);
         soundsQueue.add(1);
-        timerQueue.add(Duration(seconds:timerHIIT.secRest + 1,minutes:timerHIIT.minRest ));
-        colorsQueue.add(2);
-        soundsQueue.add(0);
+        if(j != timerHIIT.exercises - 1) {
+          timerQueue.add(Duration(
+              seconds: timerHIIT.secRest + 1, minutes: timerHIIT.minRest));
+          colorsQueue.add(2);
+          soundsQueue.add(0);
+        }
       }
-      if(timerHIIT.sets > i){
+      if(i != timerHIIT.sets - 1){
         timerQueue.add(Duration(seconds:timerHIIT.secRoundRest + 1,minutes: timerHIIT.minRoundRest ));
-        colorsQueue.add(3);
-        soundsQueue.add(1);
+        colorsQueue.add(0);
+        soundsQueue.add(0);
       }
     }
     startNextTimer();
   }
+
   //Detiene el timer
   void stopTimer() {
     currentTimer.cancel();
-    //currentTimer = null;
     timerQueue.insert(0,Duration(seconds: seconds,minutes: minutes));
     colorsQueue.insert(0, actualColor);
   }
+
   //Funcion recursiva para correr el reloj
   void startNextTimer() {
     if (timerQueue.isEmpty) {
@@ -124,11 +130,14 @@ class _Timer_Page extends State<Timer_Page>{
       });
     });
   }
+
   //Reinicia a sus valores iniciales
   void restartTimer(){
     this.widget.changeState(0);
     minText = secText = null;
-    currentTimer.cancel();
+    if(isTimerActive) {
+      currentTimer.cancel();
+    }
     timerHIIT.updateExercises(0);
     timerHIIT.updateRestTime(0, 0);
     timerHIIT.updateSets(0);
@@ -142,6 +151,7 @@ class _Timer_Page extends State<Timer_Page>{
     setState(() {
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -222,7 +232,9 @@ class _Timer_Page extends State<Timer_Page>{
                 top: (MediaQuery.of(context).size.height)*0.04,
                 bottom: (MediaQuery.of(context).size.height)*0.01
               ),
-              child: TimeCardList(timerHIIT),
+              child: isTimerActive != true ?
+                TimeCardList(timerHIIT):
+                  null,
             ),
           ),
         ]
