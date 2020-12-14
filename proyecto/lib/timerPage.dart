@@ -72,9 +72,6 @@ class _Timer_Page extends State<Timer_Page>{
           colorsQueue.add(2);
           soundsQueue.add(0);
         }
-        else{
-          print("Entro");
-        }
       }
       if(i != timerHIIT.sets - 1){
         timerQueue.add(Duration(seconds:timerHIIT.secRoundRest + 1,minutes: timerHIIT.minRoundRest ));
@@ -138,7 +135,9 @@ class _Timer_Page extends State<Timer_Page>{
   void restartTimer(){
     this.widget.changeState(0);
     minText = secText = null;
-    currentTimer.cancel();
+    if(isTimerActive) {
+      currentTimer.cancel();
+    }
     timerHIIT.updateExercises(0);
     timerHIIT.updateRestTime(0, 0);
     timerHIIT.updateSets(0);
