@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wakelock/wakelock.dart';
 import 'time_card_list.dart';
 import 'stringAndNumbers.dart';
 import 'timerHIITclass.dart';
@@ -204,12 +205,14 @@ class _Timer_Page extends State<Timer_Page>{
                           if(isTimerActive == true)
                             icon = Icons.pause_circle_filled;
                         });
+                        Wakelock.enable();
                       }else{
                         isTimerActive = false;
                         stopTimer();
                         setState(() {
                           icon = Icons.play_circle_fill;
                         });
+                        Wakelock.disable();
                       }
                     },
                   ),
@@ -220,6 +223,7 @@ class _Timer_Page extends State<Timer_Page>{
                       iconSize: 30,
                       onPressed: (){
                         restartTimer();
+                        Wakelock.disable();
                       }
                   ),
               ],
